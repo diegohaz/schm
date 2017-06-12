@@ -1,0 +1,56 @@
+{
+  "name": "schm-translate",
+  "version": "0.0.6",
+  "description": "Composable, immutable, parseable and validatable (yeah, many *ables) schemas for Node/JavaScript",
+  "license": "MIT",
+  "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm-translate",
+  "main": "dist/index.js",
+  "author": {
+    "name": "Diego Haz",
+    "email": "hazdiego@gmail.com",
+    "url": "github.com/diegohaz"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "coverage": "npm test -- --coverage",
+    "postcoverage": "opn coverage/lcov-report/index.html",
+    "lint": "eslint src test",
+    "flow": "flow",
+    "docs": "documentation readme src --section=API",
+    "clean": "rimraf dist",
+    "prebuild": "npm run docs && npm run clean",
+    "build": "babel src -d dist",
+    "watch": "npm-watch",
+    "prepublish": "npm run lint && npm test && npm run build"
+  },
+  "watch": {
+    "test": "{src,test}/*.js",
+    "lint": "{src,test}/*.js",
+    "build": "src"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "keywords": [
+    "schm"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "documentation": "4.0.0-rc.1",
+    "eslint": "^3.14.0",
+    "flow-bin": "^0.47.0",
+    "jest-cli": "^20.0.0",
+    "npm-watch": "^0.1.7",
+    "opn-cli": "^3.1.0",
+    "rimraf": "^2.6.1"
+  }
+}

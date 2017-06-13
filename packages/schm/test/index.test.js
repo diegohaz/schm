@@ -1,6 +1,21 @@
 import schema from '../src'
 
 describe('parse', () => {
+  it('throws', () => {
+    const schm = schema(previous => previous.merge({
+      params: {
+        foo: {
+          type: String,
+          bar: 'baz',
+        },
+      },
+      parsers: {
+        bar: 'notfunction',
+      },
+    }))
+    expect(() => schm.parse({ foo: 'foo' })).toThrow()
+  })
+
   test('no schema', () => {
     expect(
       schema().parse({ foo: 2 })

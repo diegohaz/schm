@@ -1,6 +1,11 @@
 import { type, set, get, defaultParser } from '../src/parsers'
 
 describe('type', () => {
+  test('nil value', () => {
+    expect(type(null, String)).toBeNull()
+    expect(type(undefined, String)).toBeUndefined()
+  })
+
   test('RegExp', () => {
     expect(type(1, RegExp)).toEqual(/1/i)
     expect(type(1, [RegExp])).toEqual([/1/i])
@@ -77,7 +82,6 @@ describe('get', () => {
 })
 
 test('defaultParser', () => {
-  expect(defaultParser('undefined', 'foo')).toBe('foo')
   expect(defaultParser(undefined, 'foo')).toBe('foo')
   expect(defaultParser(null, 'foo')).toBe('foo')
   expect(defaultParser('', 'foo')).toBe('foo')

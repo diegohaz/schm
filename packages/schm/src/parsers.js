@@ -3,6 +3,9 @@ export const type = (value, option) => {
     return (Array.isArray(value) ? value : [value])
       .map(val => type(val, option[0]))
   }
+  if (value == null) {
+    return value
+  }
   switch (option.name) {
     case 'RegExp': return new RegExp(value, 'i')
     case 'Date': return new Date(/^\d{5,}$/.test(value) ? Number(value) : value)
@@ -28,7 +31,7 @@ export const get = (value, option) => {
 }
 
 export const defaultParser = (value, option) => {
-  if (value === 'undefined' || value == null || value === '' || Number.isNaN(value)) {
+  if (value == null || value === '' || Number.isNaN(value)) {
     return option
   }
   return value

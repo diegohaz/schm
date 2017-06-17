@@ -30,6 +30,27 @@ export const get = (value, option) => {
   throw new Error('[schm] `get` option must be a function')
 }
 
+export const lowercase = (value, option) => {
+  if (option && value && typeof value.toLowerCase === 'function') {
+    return value.toLowerCase()
+  }
+  return value
+}
+
+export const uppercase = (value, option) => {
+  if (option && value && typeof value.toUpperCase === 'function') {
+    return value.toUpperCase()
+  }
+  return value
+}
+
+export const trim = (value, option) => {
+  if (option && value && typeof value.trim === 'function') {
+    return value.trim()
+  }
+  return value
+}
+
 export const defaultParser = (value, option) => {
   if (value == null || value === '' || Number.isNaN(value)) {
     return option

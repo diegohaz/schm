@@ -1,6 +1,6 @@
 // @flow
 import merge from 'lodash/merge'
-import { type, set, get, defaultParser } from './parsers'
+import { type, set, get, lowercase, uppercase, trim, defaultParser } from './parsers'
 import type { Schema, SchemaGroup } from './types'
 
 /**
@@ -85,7 +85,7 @@ const defaultSchema = (params?: Object = {}): Schema => ({
     }
   }, {}),
 
-  parsers: { type, set, get, default: defaultParser },
+  parsers: { type, set, get, lowercase, uppercase, trim, default: defaultParser },
 
   parse(values) {
     return parse(this, values)

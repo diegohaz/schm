@@ -1,4 +1,4 @@
-import { type, set, get, defaultParser } from '../src/parsers'
+import { type, set, get, lowercase, uppercase, trim, defaultParser } from '../src/parsers'
 
 describe('type', () => {
   test('nil value', () => {
@@ -79,6 +79,21 @@ describe('get', () => {
   it('throws an error', () => {
     expect(() => get('foo', 'bar')).toThrow()
   })
+})
+
+test('lowercase', () => {
+  expect(lowercase('FOO', false)).toBe('FOO')
+  expect(lowercase('FOO', true)).toBe('foo')
+})
+
+test('uppercase', () => {
+  expect(uppercase('foo', false)).toBe('foo')
+  expect(uppercase('foo', true)).toBe('FOO')
+})
+
+test('trim', () => {
+  expect(trim('  foo  ', false)).toBe('  foo  ')
+  expect(trim('  foo  ', true)).toBe('foo')
 })
 
 test('defaultParser', () => {

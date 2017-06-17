@@ -48,6 +48,48 @@ describe('parse', () => {
     ).toEqual({ foo: 'bar!!' })
   })
 
+  test('lowercase', () => {
+    expect(
+      schema({
+        foo: { type: String, lowercase: true },
+      }).parse({ foo: 'FOO' })
+    ).toEqual({ foo: 'foo' })
+
+    expect(
+      schema({
+        foo: { type: String, default: 'FOO', lowercase: true },
+      }).parse()
+    ).toEqual({ foo: 'foo' })
+  })
+
+  test('uppercase', () => {
+    expect(
+      schema({
+        foo: { type: String, uppercase: true },
+      }).parse({ foo: 'foo' })
+    ).toEqual({ foo: 'FOO' })
+
+    expect(
+      schema({
+        foo: { type: String, default: 'foo', uppercase: true },
+      }).parse()
+    ).toEqual({ foo: 'FOO' })
+  })
+
+  test('trim', () => {
+    expect(
+      schema({
+        foo: { type: String, trim: true },
+      }).parse({ foo: '  bar ' })
+    ).toEqual({ foo: 'bar' })
+
+    expect(
+      schema({
+        foo: { type: String, default: '  bar   ', trim: true },
+      }).parse()
+    ).toEqual({ foo: 'bar' })
+  })
+
   test('default', () => {
     expect(
       schema({ foo: 'bar' }).parse()

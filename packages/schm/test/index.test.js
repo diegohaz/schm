@@ -142,40 +142,72 @@ describe('parse', () => {
   })
 })
 
-test('composition', () => {
-  const foo = params => previous => previous.merge({
-    params,
-    parsers: {
-      foo: (value, option) => `${value}${option}`,
-    },
+describe('validate', () => {
+  it('fails when validating validate option', async () => {
+    const validate = jest.fn(val => val !== 'test')
+    await expect(
+      schema({ foo: { bar: { type: String, validate } } }).validate({ foo: { bar: 'test' } })
+    ).rejects.toBeTruthy()
   })
 
-  const bar = params => previous => previous.merge({
-    params: Object.keys(params).reduce((finalParams, name) => ({
-      ...finalParams,
-      [name]: {
-        bar: params[name],
-      },
-    }), {}),
-    parsers: {
-      bar: (value, option) => `${value}${option}`,
-    },
+  test('required', async () => {
+    await expect(
+      schema({
+        foo: {
+          type: String,
+          required: true
+        }
+      }).validate()
+    ).rejects.toBeTruthy()
   })
-
-  expect(
-    schema(
-      {
-        name: String,
-      },
-      foo({
-        name: {
-          foo: 'foo',
-        },
-      }),
-      bar({
-        name: 'bar',
-      })
-    ).parse({ name: 'test' })
-  ).toEqual({ name: 'testfoobar' })
 })
 
+describe('composition', () => {
+  it('composes schema group', () => {
+    const foo = params => previous => previous.merge({
+      params,
+      parsers: {
+        foo: (value, option) => `${value}${option}`,
+      },
+    })
+
+    const bar = params => previous => previous.merge({
+      params: Object.keys(params).reduce((finalParams, name) => ({
+        ...finalParams,
+        [name]: {
+          bar: params[name],
+        },
+      }), {}),
+      parsers: {
+        bar: (value, option) => `${value}${option}`,
+      },
+    })
+
+    expect(
+      schema(
+        {
+          name: String,
+        },
+        foo({
+          name: {
+            foo: 'foo',
+          },
+        }),
+        bar({
+          name: 'bar',
+        })
+      ).parse({ name: 'test' })
+    ).toEqual({ name: 'testfoobar' })
+  })
+
+  it('composes schema', () => {
+    const schema1 = schema({ age: Number })
+    const schema2 = schema(schema1, { name: String })
+    expect(
+      schema2.parse({ name: 'Haz', age: '27' })
+    ).toEqual({
+      name: 'Haz',
+      age: 27,
+    })
+  })
+})

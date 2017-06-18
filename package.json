@@ -19,7 +19,7 @@
     "eslint-plugin-flowtype": "^2.29.2",
     "eslint-plugin-flowtype-errors": "^3.0.0",
     "eslint-plugin-import": "^2.2.0",
-    "flow-bin": "^0.47.0",
+    "flow-bin": "^0.48.0",
     "lerna": "^2.0.0-rc.5"
   }
 }

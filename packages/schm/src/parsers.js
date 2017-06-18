@@ -1,4 +1,7 @@
-export const type = (value, option) => {
+// @flow
+import type { Parser } from './types'
+
+export const type: Parser = (value, option) => {
   if (Array.isArray(option)) {
     return (Array.isArray(value) ? value : [value])
       .map(val => type(val, option[0]))
@@ -16,42 +19,51 @@ export const type = (value, option) => {
   }
 }
 
-export const set = (value, option) => {
+export const set: Parser = (value, option) => {
   if (typeof option === 'function') {
     return option(value)
   }
   throw new Error('[schm] `set` option must be a function')
 }
 
-export const get = (value, option) => {
+export const get: Parser = (value, option) => {
   if (typeof option === 'function') {
     return option(value)
   }
   throw new Error('[schm] `get` option must be a function')
 }
 
-export const lowercase = (value, option) => {
-  if (option && value && typeof value.toLowerCase === 'function') {
-    return value.toLowerCase()
+export const lowercase: Parser = (value, option) => {
+  if (option && value) {
+    if (typeof value.toLowerCase === 'function') {
+      return value.toLowerCase()
+    }
+    throw new Error(`[schm] value must be a string to be lowercased. Instead, received ${typeof value}`)
   }
   return value
 }
 
-export const uppercase = (value, option) => {
-  if (option && value && typeof value.toUpperCase === 'function') {
-    return value.toUpperCase()
+export const uppercase: Parser = (value, option) => {
+  if (option && value) {
+    if (typeof value.toUpperCase === 'function') {
+      return value.toUpperCase()
+    }
+    throw new Error(`[schm] value must be a string to be uppercased. Instead, received ${typeof value}`)
   }
   return value
 }
 
-export const trim = (value, option) => {
-  if (option && value && typeof value.trim === 'function') {
-    return value.trim()
+export const trim: Parser = (value, option) => {
+  if (option && value) {
+    if (typeof value.trim === 'function') {
+      return value.trim()
+    }
+    throw new Error(`[schm] value must be a string to be trimmed. Instead, received ${typeof value}`)
   }
   return value
 }
 
-export const defaultParser = (value, option) => {
+export const defaultParser: Parser = (value, option) => {
   if (value == null || value === '' || Number.isNaN(value)) {
     return option
   }

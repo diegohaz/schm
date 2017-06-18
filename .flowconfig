@@ -1,5 +1,4 @@
 [ignore]
 .*/dist
 .*/coverage
-.*/node_modules/documentation
-.*/node_modules/conventional-changelog-core
+.*/node_modules/[^l].*

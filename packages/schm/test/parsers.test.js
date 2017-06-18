@@ -81,19 +81,37 @@ describe('get', () => {
   })
 })
 
-test('lowercase', () => {
-  expect(lowercase('FOO', false)).toBe('FOO')
-  expect(lowercase('FOO', true)).toBe('foo')
+describe('lowercase', () => {
+  it('calls function', () => {
+    expect(lowercase('FOO', false)).toBe('FOO')
+    expect(lowercase('FOO', true)).toBe('foo')
+  })
+
+  it('throws an error', () => {
+    expect(() => lowercase(1, true)).toThrow()
+  })
 })
 
-test('uppercase', () => {
-  expect(uppercase('foo', false)).toBe('foo')
-  expect(uppercase('foo', true)).toBe('FOO')
+describe('uppercase', () => {
+  it('calls function', () => {
+    expect(uppercase('foo', false)).toBe('foo')
+    expect(uppercase('foo', true)).toBe('FOO')
+  })
+
+  it('throws an error', () => {
+    expect(() => uppercase(1, true)).toThrow()
+  })
 })
 
-test('trim', () => {
-  expect(trim('  foo  ', false)).toBe('  foo  ')
-  expect(trim('  foo  ', true)).toBe('foo')
+describe('trim', () => {
+  it('calls function', () => {
+    expect(trim('  foo  ', false)).toBe('  foo  ')
+    expect(trim('  foo  ', true)).toBe('foo')
+  })
+
+  it('throws an error', () => {
+    expect(() => trim(1, true)).toThrow()
+  })
 })
 
 test('defaultParser', () => {

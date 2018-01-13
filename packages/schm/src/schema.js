@@ -1,28 +1,42 @@
 // @flow
 import merge from 'lodash/merge'
-import { type, set, get, lowercase, uppercase, trim, defaultParser } from './parsers'
-import { required, validate as validateValidator } from './validators'
 import { isSchema } from './utils'
 import parse from './parse'
 import validate from './validate'
 import type { Schema, SchemaGroup } from './types'
+import parsers from './parsers'
+import validators from './validators'
+
+const isLiteralType = options => typeof options === 'function'
+
+const isDefaultValue = options => (
+  !isLiteralType(options) && typeof options !== 'object'
+)
+
+const isNestedObject = options => (
+  !Array.isArray(options) &&
+  !isLiteralType(options) &&
+  !isDefaultValue(options) &&
+  !options.type
+)
+
+const isArrayWithNestedObject = options => (
+  Array.isArray(options) && isNestedObject(options[0])
+)
 
 const defaultSchema = (params?: Object = {}): Schema => ({
+  parsers,
+  validators,
+  parse(values) {
+    return parse(this, values)
+  },
+  validate(values) {
+    return validate(this, values)
+  },
+  merge(...schemas) {
+    return merge({}, this, ...schemas)
+  },
   params: Object.keys(params).reduce((finalParams, name) => {
-    const isLiteralType = options => typeof options === 'function'
-
-    const isDefaultValue = options =>
-      !isLiteralType(options) && typeof options !== 'object'
-
-    const isNestedObject = options =>
-      !Array.isArray(options) &&
-      !isLiteralType(options) &&
-      !isDefaultValue(options) &&
-      !options.type
-
-    const isArrayWithNestedObject = options =>
-      Array.isArray(options) && isNestedObject(options[0])
-
     let options = params[name]
 
     if (isLiteralType(options)) {
@@ -40,22 +54,6 @@ const defaultSchema = (params?: Object = {}): Schema => ({
       [name]: options,
     }
   }, {}),
-
-  parsers: { type, set, get, lowercase, uppercase, trim, default: defaultParser },
-
-  validators: { required, validate: validateValidator },
-
-  parse(values) {
-    return parse(this, values)
-  },
-
-  validate(values) {
-    return validate(this, values)
-  },
-
-  merge(...schemas) {
-    return merge({}, this, ...schemas)
-  },
 })
 
 /**

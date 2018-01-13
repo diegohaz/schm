@@ -8,27 +8,26 @@ export type Parser = (
   params?: Object,
 ) => any
 
+export type ValidatorResponse = {
+  valid: any,
+  message?: string
+}
+
 export type Validator = (
   value: any,
   option: any,
   values?: Object,
   options?: Object,
   params?: Object,
-) => boolean | Promise<any>
+) => ValidatorResponse
 
-export type ValidatorObject = {
-  validator: Validator,
-  ['message' | 'msg']: string,
-}
-
+/** */
 export type ValidationError = {
-  value: any,
+  param: string,
+  value?: any,
   validator: string,
-  validatorValue: any,
   message?: string,
 }
-
-export type ValidationErrors = { [string]: ValidationError | ValidationErrors }
 
 /** */
 export type Schema = {
@@ -36,7 +35,7 @@ export type Schema = {
   parsers: { [string]: Parser },
   validators: { [string]: Validator },
   parse: (values: Object) => Object,
-  validate: (values: Object) => Promise<ValidationErrors>,
+  validate: (values: Object) => Promise<ValidationError[]>,
   merge: (...schemas: Schema[]) => Schema,
 }
 

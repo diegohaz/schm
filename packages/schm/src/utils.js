@@ -1,6 +1,13 @@
 // @flow
 import type { Schema } from './types'
 
+type TransformValueFunction = (
+  value: any,
+  options: Object,
+  paramName: string,
+  paramPath: string,
+) => any
+
 export const isSchema = (schema: ?Schema): boolean => !!(
   schema &&
   schema.params &&
@@ -11,10 +18,11 @@ export const isSchema = (schema: ?Schema): boolean => !!(
   schema.merge
 )
 
-export const walk = (
+export const mapValuesToSchema = (
   schema: Schema,
   values: Object,
-  fn: (paramName: string, options: Object, value: any) => any
+  transformValue: TransformValueFunction,
+  paramNames: string[] = []
 ): Object => (
   Object.keys(schema.params).reduce((finalParams, paramName) => {
     const options = schema.params[paramName]
@@ -22,12 +30,39 @@ export const walk = (
     let finalValue
 
     if (isSchema(options)) {
-      finalValue = walk(options, value, fn)
-    } else if (Array.isArray(options) && isSchema(options[0])) {
+      finalValue = mapValuesToSchema(
+        options,
+        value,
+        transformValue,
+        [...paramNames, paramName]
+      )
+    } else if (Array.isArray(options)) {
       const arrayValue = Array.isArray(value) ? value : [value]
-      finalValue = arrayValue.map(val => walk(options[0], val, fn))
+
+      if (isSchema(options[0])) {
+        finalValue = arrayValue.map((val, i) =>
+          mapValuesToSchema(
+            options[0],
+            val,
+            transformValue,
+            [...paramNames, paramName, `${i}`]
+          ))
+      } else {
+        finalValue = arrayValue.map((val, i) =>
+          transformValue(
+            val,
+            options[0],
+            paramName,
+            [...paramNames, paramName, i].join('.')
+          ))
+      }
     } else {
-      finalValue = fn(paramName, options, value)
+      finalValue = transformValue(
+        value,
+        options,
+        paramName,
+        [...paramNames, paramName].join('.')
+      )
     }
 
     return {

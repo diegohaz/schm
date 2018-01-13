@@ -12,12 +12,8 @@ describe('methods', () => {
       getName2: (values, prefix) => prefix + values.name,
     }))
 
-    expect(
-      schm.parse({ name: 'John' }).getName('Mr. ')
-    ).toEqual('Mr. John')
-    expect(
-      schm.parse({ name: 'John' }).getName2('Mr. ')
-    ).toEqual('Mr. John')
+    expect(schm.parse({ name: 'John' }).getName('Mr. ')).toEqual('Mr. John')
+    expect(schm.parse({ name: 'John' }).getName2('Mr. ')).toEqual('Mr. John')
   })
 
   it('throws', () => {

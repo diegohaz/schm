@@ -1,68 +1,105 @@
 // @flow
-import isObject from 'lodash/isObject'
 import parse from './parse'
-import { walk } from './utils'
-import type { Schema, ValidationErrors } from './types'
+import { mapValuesToSchema } from './utils'
+import type { Schema, ValidationError } from './types'
 
-const flatten = (object) => {
-  let flattened = {}
+const isPrimitive = arg =>
+  arg == null || (typeof arg !== 'object' && typeof arg !== 'function')
 
-  for (let i in object) {
-    const value = object[i]
-    const isLast = Object.prototype.hasOwnProperty.call(value, 'value')
-    if (isLast) {
-      flattened[i] = value
-      continue
-    }
-    const flatObject = flatten(value)
-    for (let x in flatObject) {
-      flattened[i + '.' + x] = flatObject[x]
-    }
-  }
-  return flattened
-}
+const replaceMessage = (
+  message: string,
+  paramName: string,
+  value: any,
+  validatorName: string
+): string => (
+  message
+    .replace(/\{(PARAM|PATH)\}/g, paramName)
+    .replace(/\{VALUE\}/g, value)
+    .replace(/\{(VALIDATOR|TYPE)\}/g, validatorName)
+)
 
-const validate = (schema: Schema, values?: Object = {}): Promise<ValidationErrors> => {
+const createErrorObject = (
+  param: string,
+  value: any,
+  validator: string,
+  option: any,
+  message?: string
+): ValidationError => ({
+  param,
+  ...isPrimitive(value) ? { value } : {},
+  validator,
+  ...isPrimitive(option) ? { [validator]: option } : {},
+  ...message ? { message: replaceMessage(message, param, value, validator) } : {},
+})
+
+/**
+ * Validates a schema based on given values.
+ * @example
+ * const userSchema = schema({
+ *   name: {
+ *     type: String,
+ *     required: true,
+ *   },
+ *   age: {
+ *     type: Number,
+ *     min: [18, 'Too young'],
+ *   }
+ * })
+ *
+ * validate(userSchema, { name: 'John', age: 17 })
+ *   .then((parsedValues) => {
+ *     console.log('Yaay!', parsedValues)
+ *   })
+ *   .catch((errors) => {
+ *     console.log('Oops!', errors)
+ *   })
+ *
+ * \/*
+ * Output:
+ * Oops! [{
+ *   param: 'age',
+ *   value: 17,
+ *   validator: 'min',
+ *   min: 18,
+ *   message: 'Too young',
+ * }]
+ * *\/
+ */
+const validate = (schema: Schema, values?: Object = {}): Promise<ValidationError[]> => {
   const parsed = parse(schema, values)
+  const promises = []
+  const errors = []
 
-  const errors = walk(schema, parsed, (paramName, options, value) => (
-    Object.keys(options).reduce((error, optionName) => {
-      if (error) {
-        return error
-      }
+  mapValuesToSchema(schema, parsed, (value, options, paramName, paramPath) => {
+    let error
+
+    Object.keys(options).forEach((optionName) => {
+      if (error) return
 
       const option = options[optionName]
-      const fn = schema.validators[optionName]
+      const validator = schema.validators[optionName]
 
-      if (typeof fn === 'function') {
-        const valid = fn(value, option, parsed, options, schema.params)
+      if (typeof validator === 'function') {
+        const { valid, message } = validator(value, option, parsed, options, schema.params)
         if (!valid) {
-          return {
-            value,
-            validator: optionName,
-          }
+          error = createErrorObject(paramPath, value, optionName, option, message)
+          errors.push(error)
+        } else if (typeof valid.catch === 'function') {
+          promises.push(valid.catch(() =>
+            Promise.reject(createErrorObject(paramPath, valid, optionName, option, message))))
         }
-      } else if (fn) {
+      } else if (validator) {
         throw new Error(`[schm] ${paramName} validator must be a function`)
       }
-      return error
-    }, undefined)
-  ))
+    })
+  })
 
-  const flatErrors = flatten(errors)
-  const arrayErrors = Object.keys(flatErrors).reduce((finalErrors, paramPath) => {
-    const error = flatErrors[paramPath]
-    if (typeof error !== 'undefined') {
-      return [
-        ...finalErrors,
-        { param: paramPath, ...error },
-      ]
-    }
-    return finalErrors
-  }, [])
-  console.log(arrayErrors)
-
-  return arrayErrors.length ? Promise.reject(arrayErrors) : Promise.resolve()
+  if (errors.length) {
+    return Promise.reject(errors)
+  } else if (promises.length) {
+    return Promise.all(promises).then(() => parsed)
+  }
+  return Promise.resolve(parsed)
 }
 
 export default validate

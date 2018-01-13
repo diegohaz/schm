@@ -69,3 +69,13 @@ export const defaultParser: Parser = (value, option) => {
   }
   return value
 }
+
+export default {
+  type,
+  set,
+  get,
+  lowercase,
+  uppercase,
+  trim,
+  default: defaultParser,
+}

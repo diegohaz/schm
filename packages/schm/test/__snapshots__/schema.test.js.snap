@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`validate 1`] = `
+Array [
+  Object {
+    "message": "foo is required",
+    "param": "foo",
+    "required": true,
+    "validator": "required",
+    "value": undefined,
+  },
+]
+`;

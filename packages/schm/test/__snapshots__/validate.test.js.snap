@@ -1,0 +1,358 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`enum fails with value 1`] = `
+Array [
+  Object {
+    "message": "foo must be one of the following: foo, bar",
+    "param": "foo",
+    "validator": "enum",
+    "value": "baz",
+  },
+]
+`;
+
+exports[`enum fails with value and message object 1`] = `
+Array [
+  Object {
+    "message": "foo",
+    "param": "foo",
+    "validator": "enum",
+    "value": "baz",
+  },
+]
+`;
+
+exports[`enum passes 1`] = `
+Object {
+  "foo": "foo",
+}
+`;
+
+exports[`match fails with value 1`] = `
+Array [
+  Object {
+    "message": "foo does not match",
+    "param": "foo",
+    "validator": "match",
+    "value": "bar",
+  },
+]
+`;
+
+exports[`match fails with value and message array 1`] = `
+Array [
+  Object {
+    "message": "foo",
+    "param": "foo",
+    "validator": "match",
+    "value": "bar",
+  },
+]
+`;
+
+exports[`match passes 1`] = `
+Object {
+  "foo": "foo",
+}
+`;
+
+exports[`max fails with value 1`] = `
+Array [
+  Object {
+    "max": 1,
+    "message": "foo must be lower than or equal 1",
+    "param": "foo",
+    "validator": "max",
+    "value": 2,
+  },
+]
+`;
+
+exports[`max fails with value and message array 1`] = `
+Array [
+  Object {
+    "message": "foo",
+    "param": "foo",
+    "validator": "max",
+    "value": 2,
+  },
+]
+`;
+
+exports[`max passes 1`] = `
+Object {
+  "foo": 1,
+}
+`;
+
+exports[`maxlength fails with value 1`] = `
+Array [
+  Object {
+    "maxlength": 1,
+    "message": "foo length must be lower than or equal 1",
+    "param": "foo",
+    "validator": "maxlength",
+    "value": "12",
+  },
+]
+`;
+
+exports[`maxlength fails with value and message array 1`] = `
+Array [
+  Object {
+    "message": "foo",
+    "param": "foo",
+    "validator": "maxlength",
+    "value": "12",
+  },
+]
+`;
+
+exports[`maxlength passes 1`] = `
+Object {
+  "foo": "1",
+}
+`;
+
+exports[`min fails with value 1`] = `
+Array [
+  Object {
+    "message": "foo must be greater than or equal 2",
+    "min": 2,
+    "param": "foo",
+    "validator": "min",
+    "value": 1,
+  },
+]
+`;
+
+exports[`min fails with value and message array 1`] = `
+Array [
+  Object {
+    "message": "foo",
+    "param": "foo",
+    "validator": "min",
+    "value": 1,
+  },
+]
+`;
+
+exports[`min passes 1`] = `
+Object {
+  "foo": 2,
+}
+`;
+
+exports[`minlength fails with value 1`] = `
+Array [
+  Object {
+    "message": "foo length must be greater than or equal 2",
+    "minlength": 2,
+    "param": "foo",
+    "validator": "minlength",
+    "value": "1",
+  },
+]
+`;
+
+exports[`minlength fails with value and message array 1`] = `
+Array [
+  Object {
+    "message": "foo",
+    "param": "foo",
+    "validator": "minlength",
+    "value": "1",
+  },
+]
+`;
+
+exports[`minlength passes 1`] = `
+Object {
+  "foo": "12",
+}
+`;
+
+exports[`required fails with value 1`] = `
+Array [
+  Object {
+    "message": "foo is required",
+    "param": "foo",
+    "required": true,
+    "validator": "required",
+    "value": undefined,
+  },
+]
+`;
+
+exports[`required fails with value and message array 1`] = `
+Array [
+  Object {
+    "message": "foo",
+    "param": "foo",
+    "validator": "required",
+    "value": undefined,
+  },
+]
+`;
+
+exports[`required passes 1`] = `
+Object {
+  "foo": "foo",
+}
+`;
+
+exports[`validate fails with function 1`] = `
+Array [
+  Object {
+    "param": "foo",
+    "validator": "validate",
+    "value": "wrong",
+  },
+]
+`;
+
+exports[`validate fails with function and message array 1`] = `
+Array [
+  Object {
+    "message": "wrong is wrong!",
+    "param": "foo",
+    "validator": "validate",
+    "value": "wrong",
+  },
+]
+`;
+
+exports[`validate fails with function and message object 1`] = `
+Array [
+  Object {
+    "message": "wrong is wrong!",
+    "param": "foo",
+    "validator": "validate",
+    "value": "wrong",
+  },
+]
+`;
+
+exports[`validate fails with multiple array validators 1`] = `
+Array [
+  Object {
+    "message": "wrong is wrong!",
+    "param": "foo",
+    "validator": "validate",
+    "value": "wrong",
+  },
+]
+`;
+
+exports[`validate fails with multiple array validators 2`] = `
+Array [
+  Object {
+    "message": "notright is notright!",
+    "param": "foo",
+    "validator": "validate",
+    "value": "notright",
+  },
+]
+`;
+
+exports[`validate fails with multiple function validators 1`] = `
+Array [
+  Object {
+    "param": "foo",
+    "validator": "validate",
+    "value": "wrong",
+  },
+]
+`;
+
+exports[`validate fails with multiple function validators 2`] = `
+Array [
+  Object {
+    "param": "foo",
+    "validator": "validate",
+    "value": "notright",
+  },
+]
+`;
+
+exports[`validate fails with multiple object validators 1`] = `
+Array [
+  Object {
+    "message": "wrong is wrong!",
+    "param": "foo",
+    "validator": "validate",
+    "value": "wrong",
+  },
+]
+`;
+
+exports[`validate fails with multiple object validators 2`] = `
+Array [
+  Object {
+    "message": "notright is notright!",
+    "param": "foo",
+    "validator": "validate",
+    "value": "notright",
+  },
+]
+`;
+
+exports[`validate fails with multiple params 1`] = `
+Array [
+  Object {
+    "param": "foo",
+    "validator": "validate",
+    "value": "wrong",
+  },
+  Object {
+    "param": "bar",
+    "validator": "validate",
+    "value": "wrong",
+  },
+]
+`;
+
+exports[`validate fails with nested param 1`] = `
+Array [
+  Object {
+    "param": "foo.bar.1",
+    "validator": "validate",
+    "value": "wrong",
+  },
+]
+`;
+
+exports[`validate fails with promise 1`] = `
+Object {
+  "param": "foo",
+  "validator": "validate",
+}
+`;
+
+exports[`validate fails with promise and message array 1`] = `
+Object {
+  "message": "[object Promise] is wrong!",
+  "param": "foo",
+  "validator": "validate",
+}
+`;
+
+exports[`validate fails with promise and message object 1`] = `
+Object {
+  "message": "[object Promise] is wrong!",
+  "param": "foo",
+  "validator": "validate",
+}
+`;
+
+exports[`validate passes with function 1`] = `
+Object {
+  "foo": "right",
+}
+`;
+
+exports[`validate passes with promise 1`] = `
+Object {
+  "foo": "right",
+}
+`;

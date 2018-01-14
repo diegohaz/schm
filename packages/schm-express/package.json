@@ -1,6 +1,6 @@
 {
   "name": "schm-express",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Composable, immutable, parseable and validatable (yeah, many *ables) schemas for Node/JavaScript",
   "license": "MIT",
   "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm-express",

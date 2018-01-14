@@ -1,0 +1,59 @@
+{
+  "name": "schm-express",
+  "version": "0.0.1",
+  "description": "Composable, immutable, parseable and validatable (yeah, many *ables) schemas for Node/JavaScript",
+  "license": "MIT",
+  "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm-express",
+  "main": "dist/index.js",
+  "author": {
+    "name": "Diego Haz",
+    "email": "hazdiego@gmail.com",
+    "url": "github.com/diegohaz"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "coverage": "npm test -- --coverage",
+    "postcoverage": "opn coverage/lcov-report/index.html",
+    "lint": "eslint src test",
+    "flow": "flow check",
+    "docs": "documentation readme src --section=API",
+    "clean": "rimraf dist",
+    "prebuild": "npm run docs && npm run clean",
+    "build": "babel src -d dist",
+    "watch": "npm-watch",
+    "prepublish": "npm run lint && npm test && npm run build"
+  },
+  "watch": {
+    "test": "{src,test}/*.js",
+    "lint": "{src,test}/*.js",
+    "build": "src"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "keywords": [
+    "schm"
+  ],
+  "dependencies": {
+    "schm": "^0.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "body-parser": "^1.18.2",
+    "documentation": "5.3.5",
+    "eslint": "^4.15.0",
+    "express": "^4.16.2",
+    "flow-bin": "^0.63.1",
+    "jest-cli": "^22.0.6",
+    "npm-watch": "^0.3.0",
+    "opn-cli": "^3.1.0",
+    "rimraf": "^2.6.1",
+    "supertest": "^3.0.0"
+  }
+}

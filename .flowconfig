@@ -1,4 +1,8 @@
 [ignore]
 .*/dist
 .*/coverage
-.*/node_modules/[^l].*
+.*/node_modules/.*
+<PROJECT_ROOT>/libdefs.js
+
+[libs]
+./libdefs.js

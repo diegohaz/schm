@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`body handles errors 1`] = `
+Array [
+  Object {
+    "message": "foo is required",
+    "param": "foo",
+    "required": true,
+    "validator": "required",
+  },
+]
+`;
+
+exports[`query handles errors 1`] = `
+Array [
+  Object {
+    "message": "foo is required",
+    "param": "foo",
+    "required": true,
+    "validator": "required",
+  },
+]
+`;

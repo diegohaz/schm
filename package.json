@@ -4,6 +4,7 @@
   "scripts": {
     "test": "jest",
     "coverage": "npm test -- --coverage",
+    "postcoverage": "opn coverage/lcov-report/index.html",
     "lint": "eslint packages/*/{src,test}",
     "docs": "lerna exec -- npm run docs",
     "flow": "flow",
@@ -31,6 +32,7 @@
     "flow-bin": "^0.63.1",
     "jest-cli": "^22.1.4",
     "jest-runner-eslint": "^0.3.0",
-    "lerna": "^2.7.0"
+    "lerna": "^2.7.0",
+    "opn-cli": "^3.1.0"
   }
 }

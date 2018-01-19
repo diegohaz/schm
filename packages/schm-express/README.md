@@ -17,7 +17,7 @@ const { query, body, errorHandler } = require('schm-express')
 
 const app = express()
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // request GET /?foo
 app.get('/', query({ foo: { type: Boolean, required: true } }), (req, res) => {
@@ -84,7 +84,7 @@ const { body } = require('schm-express')
 
 const app = express()
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // send { foo: 1, bar: 'baz' }
 app.post('/', body({ foo: Boolean, bar: [String] }), (req, res) => {

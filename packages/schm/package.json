@@ -8,7 +8,7 @@
   "author": {
     "name": "Diego Haz",
     "email": "hazdiego@gmail.com",
-    "url": "github.com/diegohaz"
+    "url": "https://github.com/diegohaz"
   },
   "engines": {
     "node": ">=6"
@@ -21,18 +21,12 @@
     "coverage": "npm test -- --coverage",
     "postcoverage": "opn coverage/lcov-report/index.html",
     "lint": "eslint src test",
-    "flow": "flow check",
+    "flow": "flow",
     "docs": "documentation readme src --section=API",
     "clean": "rimraf dist",
     "prebuild": "npm run docs && npm run clean",
     "build": "babel src -d dist",
-    "watch": "npm-watch",
     "prepublish": "npm run lint && npm test && npm run build"
-  },
-  "watch": {
-    "test": "{src,test}/*.js",
-    "lint": "{src,test}/*.js",
-    "build": "src"
   },
   "jest": {
     "testEnvironment": "node"
@@ -53,7 +47,6 @@
     "eslint": "^4.15.0",
     "flow-bin": "^0.63.1",
     "jest-cli": "^22.0.6",
-    "npm-watch": "^0.3.0",
     "opn-cli": "^3.1.0",
     "rimraf": "^2.6.1"
   }

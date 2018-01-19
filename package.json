@@ -1,16 +1,26 @@
 {
-  "name": "schm",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "lint": "lerna run lint",
-    "test": "lerna run test",
+    "test": "jest",
+    "coverage": "npm test -- --coverage",
+    "postcoverage": "opn coverage/lcov-report/index.html",
+    "lint": "eslint packages/*/{src,test}",
+    "docs": "lerna exec -- npm run docs",
+    "flow": "flow",
     "postinstall": "lerna bootstrap"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ]
+  },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
+    "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
-    "babel-jest": "^22.0.6",
+    "babel-jest": "^22.1.0",
     "babel-preset-env": "^1.1.8",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-stage-2": "^6.18.0",
@@ -20,6 +30,8 @@
     "eslint-plugin-flowtype-errors": "^3.0.0",
     "eslint-plugin-import": "^2.2.0",
     "flow-bin": "^0.63.1",
-    "lerna": "^2.7.0"
+    "jest-cli": "^22.1.4",
+    "lerna": "^2.7.0",
+    "opn-cli": "^3.1.0"
   }
 }

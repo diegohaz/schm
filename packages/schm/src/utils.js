@@ -47,7 +47,7 @@ export const mapValuesToSchema = (
         finalValue = arrayValue.map((val, i) =>
           mapValuesToSchema(
             options[0],
-            val,
+            options[0].parse(val),
             transformValue,
             [...paramNames, paramName, `${i}`]
           ))

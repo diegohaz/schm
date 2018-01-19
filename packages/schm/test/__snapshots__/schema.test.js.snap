@@ -1,5 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`nested schema calls parse on nested schemas 1`] = `
+Object {
+  "assistantTeacher": undefined,
+  "name": undefined,
+  "otherStudents": Array [
+    Object {
+      "age": undefined,
+      "name": "baz",
+    },
+  ],
+  "students": Array [
+    Object {
+      "age": undefined,
+      "name": "foo",
+    },
+    Object {
+      "age": undefined,
+      "name": "bar",
+    },
+  ],
+  "teacher": Object {
+    "name": "Grace",
+  },
+}
+`;
+
 exports[`nested schema parses 1`] = `
 Object {
   "assistantTeacher": undefined,

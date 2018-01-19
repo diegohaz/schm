@@ -8,6 +8,10 @@ type TransformValueFunction = (
   paramPath: string,
 ) => any
 
+export const toArray = (value: any): any[] => (
+  [].concat(typeof value === 'undefined' ? [] : value)
+)
+
 export const isSchema = (schema: ?Schema): boolean => !!(
   schema &&
   schema.params &&
@@ -37,7 +41,7 @@ export const mapValuesToSchema = (
         [...paramNames, paramName]
       )
     } else if (Array.isArray(options)) {
-      const arrayValue = [].concat(value || [])
+      const arrayValue = toArray(value)
 
       if (isSchema(options[0])) {
         finalValue = arrayValue.map((val, i) =>

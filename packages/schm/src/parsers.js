@@ -1,10 +1,10 @@
 // @flow
 import type { Parser } from './types'
-import { isSchema } from './utils'
+import { isSchema, toArray } from './utils'
 
 export const type: Parser = (value, option) => {
   if (Array.isArray(option)) {
-    return ([].concat(value || [])).map(val => type(val, option[0]))
+    return toArray(value).map(val => type(val, option[0]))
   }
   if (value == null) {
     return value

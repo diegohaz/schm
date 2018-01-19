@@ -60,3 +60,46 @@ describe('composition', () => {
     })
   })
 })
+
+describe('nested schema', () => {
+  const studentSchema = schema({
+    name: {
+      type: String,
+      required: true,
+    },
+    age: Number,
+  })
+
+  const teacherSchema = schema({
+    name: {
+      type: String,
+      required: true,
+    },
+  })
+
+  const classSchema = schema({
+    name: {
+      type: String,
+      required: true,
+    },
+    teacher: teacherSchema,
+    students: [studentSchema],
+  })
+
+  it('rejects validation', async () => {
+    await expect(classSchema.validate()).rejects.toMatchSnapshot()
+  })
+
+  it('resolves validation', async () => {
+    await expect(classSchema.validate({
+      name: 'Computer Science',
+      teacher: {
+        name: 'Grace',
+      },
+    })).resolves.toMatchSnapshot()
+  })
+
+  it('parses', () => {
+    expect(classSchema.parse()).toMatchSnapshot()
+  })
+})

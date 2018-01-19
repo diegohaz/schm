@@ -17,6 +17,7 @@ const isNestedObject = options => (
   !Array.isArray(options) &&
   !isLiteralType(options) &&
   !isDefaultValue(options) &&
+  !isSchema(options) &&
   !options.type
 )
 

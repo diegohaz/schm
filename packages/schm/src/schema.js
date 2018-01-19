@@ -85,6 +85,11 @@ export const group = (params?: Object = {}): SchemaGroup => (
  * }, {
  *   age: Number
  * })
+ *
+ * // nested schema
+ * const teamSchema = schema({
+ *   users: [userSchema],
+ * })
  */
 const schema = (...groups: (Object | Schema | SchemaGroup)[]): Schema =>
   groups.reduce((finalSchema, currentGroup) => {

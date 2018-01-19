@@ -23,8 +23,8 @@ export const isSchema = (schema: ?Schema): boolean => !!(
 )
 
 export const mapValuesToSchema = (
-  schema: Schema,
   values: Object,
+  schema: Schema,
   transformValue: TransformValueFunction,
   paramNames: string[] = []
 ): Object => (
@@ -35,8 +35,8 @@ export const mapValuesToSchema = (
 
     if (isSchema(options)) {
       finalValue = mapValuesToSchema(
-        options,
         value,
+        options,
         transformValue,
         [...paramNames, paramName]
       )
@@ -46,8 +46,8 @@ export const mapValuesToSchema = (
       if (isSchema(options[0])) {
         finalValue = arrayValue.map((val, i) =>
           mapValuesToSchema(
-            options[0],
             options[0].parse(val),
+            options[0],
             transformValue,
             [...paramNames, paramName, `${i}`]
           ))

@@ -30,10 +30,10 @@ const defaultSchema = (params?: Object = {}): Schema => ({
   parsers,
   validators,
   parse(values) {
-    return parse(this, values)
+    return parse(values, this)
   },
   validate(values) {
-    return validate(this, values)
+    return validate(values, this)
   },
   merge(...schemas) {
     return merge({}, this, ...schemas)

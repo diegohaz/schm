@@ -46,7 +46,7 @@ const createErrorObject = (
  *   }
  * })
  *
- * validate(userSchema, { name: 'John', age: 17 })
+ * validate({ name: 'John', age: 17 }, userSchema)
  *   .then((parsedValues) => {
  *     console.log('Yaay!', parsedValues)
  *   })
@@ -65,12 +65,12 @@ const createErrorObject = (
  * }]
  * *\/
  */
-const validate = (schema: Schema, values?: Object = {}): Promise<ValidationError[]> => {
-  const parsed = parse(schema, values)
+const validate = (values?: Object = {}, schema: Schema): Promise<ValidationError[]> => {
+  const parsed = parse(values, schema)
   const promises = []
   const errors = []
 
-  mapValuesToSchema(schema, parsed, (value, options, paramName, paramPath) => {
+  mapValuesToSchema(parsed, schema, (value, options, paramName, paramPath) => {
     let error
 
     Object.keys(options).forEach((optionName) => {

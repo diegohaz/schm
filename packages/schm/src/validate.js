@@ -85,8 +85,9 @@ const validate = (schema: Schema, values?: Object = {}): Promise<ValidationError
           error = createErrorObject(paramPath, value, optionName, option, message)
           errors.push(error)
         } else if (typeof valid.catch === 'function') {
-          promises.push(valid.catch(() =>
-            Promise.reject(createErrorObject(paramPath, valid, optionName, option, message))))
+          promises.push(valid.catch(() => (
+            Promise.reject(createErrorObject(paramPath, valid, optionName, option, message))
+          )))
         }
       } else if (validator) {
         throw new Error(`[schm] ${paramName} validator must be a function`)

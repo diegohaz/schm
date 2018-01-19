@@ -1,13 +1,16 @@
 // @flow
 import type { Parser } from './types'
+import { isSchema, toArray } from './utils'
 
 export const type: Parser = (value, option) => {
   if (Array.isArray(option)) {
-    return (Array.isArray(value) ? value : [value])
-      .map(val => type(val, option[0]))
+    return toArray(value).map(val => type(val, option[0]))
   }
   if (value == null) {
     return value
+  }
+  if (isSchema(option)) {
+    return option.parse(value)
   }
   switch (option.name) {
     case 'RegExp': return new RegExp(value, 'i')

@@ -119,6 +119,11 @@ const userSchema = schema({
 }, {
   age: Number
 })
+
+// nested schema
+const teamSchema = schema({
+  users: [userSchema],
+})
 ```
 
 Returns **[Schema](#schema)** 

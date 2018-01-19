@@ -1,5 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`nested schema calls parse on nested schemas 1`] = `
+Object {
+  "assistantTeacher": undefined,
+  "name": undefined,
+  "otherStudents": Array [
+    Object {
+      "age": undefined,
+      "name": "baz",
+    },
+  ],
+  "students": Array [
+    Object {
+      "age": undefined,
+      "name": "foo",
+    },
+    Object {
+      "age": undefined,
+      "name": "bar",
+    },
+  ],
+  "teacher": Object {
+    "name": "Grace",
+  },
+}
+`;
+
+exports[`nested schema parses 1`] = `
+Object {
+  "assistantTeacher": undefined,
+  "name": undefined,
+  "otherStudents": Array [],
+  "students": Array [],
+  "teacher": undefined,
+}
+`;
+
+exports[`nested schema rejects validation 1`] = `
+Array [
+  Object {
+    "message": "name is required",
+    "param": "name",
+    "required": true,
+    "validator": "required",
+    "value": undefined,
+  },
+  Object {
+    "message": "teacher is required",
+    "param": "teacher",
+    "required": true,
+    "validator": "required",
+    "value": undefined,
+  },
+]
+`;
+
+exports[`nested schema resolves validation 1`] = `
+Object {
+  "assistantTeacher": undefined,
+  "name": "Computer Science",
+  "otherStudents": Array [],
+  "students": Array [],
+  "teacher": Object {
+    "name": "Grace",
+  },
+}
+`;
+
 exports[`validate 1`] = `
 Array [
   Object {

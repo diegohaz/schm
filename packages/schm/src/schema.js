@@ -7,7 +7,9 @@ import type { Schema, SchemaGroup } from './types'
 import parsers from './parsers'
 import validators from './validators'
 
-const isLiteralType = options => typeof options === 'function'
+const isLiteralType = options => (
+  typeof options === 'function' || isSchema(options)
+)
 
 const isDefaultValue = options => (
   !isLiteralType(options) && typeof options !== 'object'
@@ -82,6 +84,11 @@ export const group = (params?: Object = {}): SchemaGroup => (
  *   name: String,
  * }, {
  *   age: Number
+ * })
+ *
+ * // nested schema
+ * const teamSchema = schema({
+ *   users: [userSchema],
  * })
  */
 const schema = (...groups: (Object | Schema | SchemaGroup)[]): Schema =>

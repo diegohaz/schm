@@ -60,3 +60,78 @@ describe('composition', () => {
     })
   })
 })
+
+describe('nested schema', () => {
+  const parseMock = jest.fn()
+
+  const studentSchema = schema({
+    name: {
+      type: String,
+      required: true,
+    },
+    age: Number,
+  }, previous => previous.merge({
+    parse(values) {
+      parseMock(values)
+      return previous.parse(values)
+    },
+  }))
+
+  const teacherSchema = schema({
+    name: {
+      type: String,
+      required: true,
+    },
+  }, previous => previous.merge({
+    parse(values) {
+      parseMock(values)
+      return previous.parse(values)
+    },
+  }))
+
+  const classSchema = schema({
+    name: {
+      type: String,
+      required: true,
+    },
+    teacher: {
+      type: teacherSchema,
+      required: true,
+    },
+    assistantTeacher: teacherSchema,
+    students: {
+      type: [studentSchema],
+    },
+    otherStudents: [studentSchema],
+  })
+
+  it('rejects validation', async () => {
+    await expect(classSchema.validate()).rejects.toMatchSnapshot()
+  })
+
+  it('resolves validation', async () => {
+    await expect(classSchema.validate({
+      name: 'Computer Science',
+      teacher: {
+        name: 'Grace',
+      },
+    })).resolves.toMatchSnapshot()
+  })
+
+  it('parses', () => {
+    expect(classSchema.parse()).toMatchSnapshot()
+  })
+
+  it('calls parse on nested schemas', () => {
+    const teacher = { name: 'Grace' }
+    const students = [{ name: 'foo' }, { name: 'bar' }]
+    const otherStudents = [{ name: 'baz' }]
+    parseMock.mockReset()
+    expect(classSchema.parse({ teacher, students, otherStudents })).toMatchSnapshot()
+    expect(parseMock).toHaveBeenCalledTimes(4)
+    expect(parseMock).toHaveBeenCalledWith(teacher)
+    expect(parseMock).toHaveBeenCalledWith(students[0])
+    expect(parseMock).toHaveBeenCalledWith(students[1])
+    expect(parseMock).toHaveBeenCalledWith(otherStudents[0])
+  })
+})

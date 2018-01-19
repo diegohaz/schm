@@ -7,7 +7,9 @@ import type { Schema, SchemaGroup } from './types'
 import parsers from './parsers'
 import validators from './validators'
 
-const isLiteralType = options => typeof options === 'function'
+const isLiteralType = options => (
+  typeof options === 'function' || isSchema(options)
+)
 
 const isDefaultValue = options => (
   !isLiteralType(options) && typeof options !== 'object'
@@ -17,7 +19,6 @@ const isNestedObject = options => (
   !Array.isArray(options) &&
   !isLiteralType(options) &&
   !isDefaultValue(options) &&
-  !isSchema(options) &&
   !options.type
 )
 

@@ -82,8 +82,14 @@ describe('nested schema', () => {
       type: String,
       required: true,
     },
-    teacher: teacherSchema,
-    students: [studentSchema],
+    teacher: {
+      type: teacherSchema,
+      required: true,
+    },
+    students: {
+      type: [studentSchema],
+    },
+    otherStudents: [studentSchema],
   })
 
   it('rejects validation', async () => {

@@ -3,6 +3,7 @@
 exports[`nested schema parses 1`] = `
 Object {
   "name": undefined,
+  "otherStudents": Array [],
   "students": Array [],
   "teacher": undefined,
 }
@@ -17,12 +18,20 @@ Array [
     "validator": "required",
     "value": undefined,
   },
+  Object {
+    "message": "teacher is required",
+    "param": "teacher",
+    "required": true,
+    "validator": "required",
+    "value": undefined,
+  },
 ]
 `;
 
 exports[`nested schema resolves validation 1`] = `
 Object {
   "name": "Computer Science",
+  "otherStudents": Array [],
   "students": Array [],
   "teacher": Object {
     "name": "Grace",

@@ -425,11 +425,11 @@ babel-helpers@^6.24.1:
     babel-template "^6.24.1"
 
 babel-jest@^22.0.6:
-  version "22.0.6"
-  resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-22.0.6.tgz#807a2a5f5fad7789c57174a955cd14b11045299f"
+  version "22.1.0"
+  resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-22.1.0.tgz#7fae6f655fffe77e818a8c2868c754a42463fdfd"
   dependencies:
     babel-plugin-istanbul "^4.1.5"
-    babel-preset-jest "^22.0.6"
+    babel-preset-jest "^22.1.0"
 
 babel-messages@^6.23.0:
   version "6.23.0"
@@ -451,9 +451,9 @@ babel-plugin-istanbul@^4.1.5:
     istanbul-lib-instrument "^1.7.5"
     test-exclude "^4.1.1"
 
-babel-plugin-jest-hoist@^22.0.6:
-  version "22.0.6"
-  resolved "https://registry.yarnpkg.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-22.0.6.tgz#551269ded350a15d6585da35d16d449df30d66c4"
+babel-plugin-jest-hoist@^22.1.0:
+  version "22.1.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-22.1.0.tgz#c1281dd7887d77a1711dc760468c3b8285dde9ee"
 
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
@@ -778,11 +778,11 @@ babel-preset-flow@^6.23.0:
   dependencies:
     babel-plugin-transform-flow-strip-types "^6.22.0"
 
-babel-preset-jest@^22.0.6:
-  version "22.0.6"
-  resolved "https://registry.yarnpkg.com/babel-preset-jest/-/babel-preset-jest-22.0.6.tgz#d13202533db9495c98663044d9f51b273d3984c8"
+babel-preset-jest@^22.1.0:
+  version "22.1.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-jest/-/babel-preset-jest-22.1.0.tgz#ff4e704102f9642765e2254226050561d8942ec9"
   dependencies:
-    babel-plugin-jest-hoist "^22.0.6"
+    babel-plugin-jest-hoist "^22.1.0"
     babel-plugin-syntax-object-rest-spread "^6.13.0"
 
 babel-preset-stage-2@^6.18.0:
@@ -906,10 +906,10 @@ braces@^1.8.2:
     repeat-element "^1.1.2"
 
 browserslist@^2.1.2:
-  version "2.11.1"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-2.11.1.tgz#02fda29d9a2164b879100126e7b0d0b57e43a7bb"
+  version "2.11.3"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-2.11.3.tgz#fe36167aed1bbcde4827ebfe71347a2cc70b99b2"
   dependencies:
-    caniuse-lite "^1.0.30000789"
+    caniuse-lite "^1.0.30000792"
     electron-to-chromium "^1.3.30"
 
 builtin-modules@^1.0.0, builtin-modules@^1.1.1:
@@ -949,9 +949,9 @@ camelcase@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
-caniuse-lite@^1.0.30000789:
-  version "1.0.30000791"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000791.tgz#8e35745efd483a3e23bb7d350990326d2319fc16"
+caniuse-lite@^1.0.30000792:
+  version "1.0.30000792"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000792.tgz#d0cea981f8118f3961471afbb43c9a1e5bbf0332"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -1419,15 +1419,9 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-electron-releases@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/electron-releases/-/electron-releases-2.1.0.tgz#c5614bf811f176ce3c836e368a0625782341fd4e"
-
 electron-to-chromium@^1.3.30:
-  version "1.3.30"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.30.tgz#9666f532a64586651fc56a72513692e820d06a80"
-  dependencies:
-    electron-releases "^2.1.0"
+  version "1.3.31"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.31.tgz#00d832cba9fe2358652b0c48a8816c8e3a037e9f"
 
 error-ex@^1.2.0, error-ex@^1.3.1:
   version "1.3.1"
@@ -2354,8 +2348,8 @@ lcid@^1.0.0:
     invert-kv "^1.0.0"
 
 lerna@^2.7.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/lerna/-/lerna-2.7.0.tgz#1df22aebaa82d8134b19303ac3e503146d1e4e9a"
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/lerna/-/lerna-2.8.0.tgz#309a816fca5c73ea38f9f20e314a836e99b54cf0"
   dependencies:
     async "^1.5.0"
     chalk "^2.1.0"
@@ -2925,8 +2919,8 @@ randomatic@^1.1.3:
     kind-of "^4.0.0"
 
 rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.3.tgz#51575a900f8dd68381c710b4712c2154c3e2035b"
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.4.tgz#a0f606caae2a3b862bbd0ef85482c0125b315fa3"
   dependencies:
     deep-extend "~0.4.0"
     ini "~1.3.0"
@@ -3172,8 +3166,8 @@ safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
 "semver@2 || 3 || 4 || 5", semver@^5.0.1, semver@^5.1.0, semver@^5.3.0, semver@^5.4.1:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
 set-blocking@^2.0.0, set-blocking@~2.0.0:
   version "2.0.0"
@@ -3543,8 +3537,8 @@ uuid@^2.0.1:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
 
 uuid@^3.0.0, uuid@^3.0.1:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 
 v8flags@^2.1.1:
   version "2.1.1"

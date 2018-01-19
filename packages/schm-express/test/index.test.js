@@ -5,7 +5,8 @@ import { query, body, errorHandler } from '../src'
 
 const createApp = (middleware) => {
   const app = express()
-  app.use(bodyParser())
+  app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded())
   app.post('/', middleware, (req, res) => res.send({
     query: req.query,
     body: req.body,

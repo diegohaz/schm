@@ -1,11 +1,17 @@
 {
-  "name": "schm",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "lint": "lerna run lint",
-    "test": "lerna run test",
+    "lint": "eslint packages/*/{src,test}",
+    "test": "jest",
     "postinstall": "lerna bootstrap"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ]
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -21,6 +27,7 @@
     "eslint-plugin-import": "^2.2.0",
     "flow-bin": "^0.63.1",
     "jest-cli": "^22.1.4",
+    "jest-runner-eslint": "^0.3.0",
     "lerna": "^2.7.0"
   }
 }

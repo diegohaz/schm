@@ -30,12 +30,12 @@ export const mapValuesToSchema = (
     let finalValue
 
     if (isSchema(options)) {
-      finalValue = value ? mapValuesToSchema(
+      finalValue = mapValuesToSchema(
         options,
         value,
         transformValue,
         [...paramNames, paramName]
-      ) : undefined
+      )
     } else if (Array.isArray(options)) {
       const arrayValue = [].concat(value || [])
 

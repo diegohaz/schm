@@ -2,6 +2,7 @@
 
 exports[`nested schema parses 1`] = `
 Object {
+  "assistantTeacher": undefined,
   "name": undefined,
   "otherStudents": Array [],
   "students": Array [],
@@ -30,6 +31,7 @@ Array [
 
 exports[`nested schema resolves validation 1`] = `
 Object {
+  "assistantTeacher": undefined,
   "name": "Computer Science",
   "otherStudents": Array [],
   "students": Array [],

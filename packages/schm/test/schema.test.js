@@ -86,6 +86,7 @@ describe('nested schema', () => {
       type: teacherSchema,
       required: true,
     },
+    assistantTeacher: teacherSchema,
     students: {
       type: [studentSchema],
     },

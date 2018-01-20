@@ -59,15 +59,15 @@ Parses a schema based on given values.
 
 **Parameters**
 
--   `schema` **[Schema](#schema)** 
 -   `values` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+-   `schema` **[Schema](#schema)** 
 
 **Examples**
 
 ```javascript
 parse(
+  { foo: 1, bar: '1' },
   schema({ foo: String, bar: Number }),
-  { foo: 1, bar: '1' }
 )
 // -> { foo: '1', bar: 1 }
 
@@ -162,8 +162,8 @@ Validates a schema based on given values.
 
 **Parameters**
 
--   `schema` **[Schema](#schema)** 
 -   `values` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+-   `schema` **[Schema](#schema)** 
 
 **Examples**
 
@@ -179,7 +179,7 @@ const userSchema = schema({
   }
 })
 
-validate(userSchema, { name: 'John', age: 17 })
+validate({ name: 'John', age: 17 }, userSchema)
   .then((parsedValues) => {
     console.log('Yaay!', parsedValues)
   })

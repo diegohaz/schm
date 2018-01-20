@@ -9,7 +9,7 @@ describe('validate', () => {
         validate: () => false,
       },
     })
-    await expect(validate(schm, { foo: 'wrong' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'wrong' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with promise', async () => {
@@ -19,7 +19,7 @@ describe('validate', () => {
         validate: () => Promise.reject(),
       },
     })
-    await expect(validate(schm, { foo: 'wrong' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'wrong' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with function and message array', async () => {
@@ -29,7 +29,7 @@ describe('validate', () => {
         validate: [() => false, '{VALUE} is wrong!'],
       },
     })
-    await expect(validate(schm, { foo: 'wrong' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'wrong' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with function and message object', async () => {
@@ -42,7 +42,7 @@ describe('validate', () => {
         },
       },
     })
-    await expect(validate(schm, { foo: 'wrong' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'wrong' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with promise and message array', async () => {
@@ -52,7 +52,7 @@ describe('validate', () => {
         validate: [() => Promise.reject(), '{VALUE} is wrong!'],
       },
     })
-    await expect(validate(schm, { foo: 'wrong' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'wrong' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with promise and message object', async () => {
@@ -65,7 +65,7 @@ describe('validate', () => {
         },
       },
     })
-    await expect(validate(schm, { foo: 'wrong' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'wrong' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with nested param', async () => {
@@ -77,7 +77,7 @@ describe('validate', () => {
         }],
       },
     })
-    await expect(validate(schm, { foo: { bar: ['right', 'wrong'] } })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: { bar: ['right', 'wrong'] } }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with multiple function validators', async () => {
@@ -90,8 +90,8 @@ describe('validate', () => {
         ],
       },
     })
-    await expect(validate(schm, { foo: 'wrong' })).rejects.toMatchSnapshot()
-    await expect(validate(schm, { foo: 'notright' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'wrong' }, schm)).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'notright' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with multiple array validators', async () => {
@@ -104,8 +104,8 @@ describe('validate', () => {
         ],
       },
     })
-    await expect(validate(schm, { foo: 'wrong' })).rejects.toMatchSnapshot()
-    await expect(validate(schm, { foo: 'notright' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'wrong' }, schm)).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'notright' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with multiple object validators', async () => {
@@ -118,8 +118,8 @@ describe('validate', () => {
         ],
       },
     })
-    await expect(validate(schm, { foo: 'wrong' })).rejects.toMatchSnapshot()
-    await expect(validate(schm, { foo: 'notright' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'wrong' }, schm)).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'notright' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with multiple params', async () => {
@@ -127,7 +127,7 @@ describe('validate', () => {
       foo: { type: String, validate: () => false },
       bar: { type: String, validate: () => false },
     })
-    await expect(validate(schm, { foo: 'wrong', bar: 'wrong' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'wrong', bar: 'wrong' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('passes with function', async () => {
@@ -137,7 +137,7 @@ describe('validate', () => {
         validate: () => true,
       },
     })
-    await expect(validate(schm, { foo: 'right' })).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 'right' }, schm)).resolves.toMatchSnapshot()
   })
 
   it('passes with promise', async () => {
@@ -147,7 +147,7 @@ describe('validate', () => {
         validate: () => Promise.resolve(),
       },
     })
-    await expect(validate(schm, { foo: 'right' })).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 'right' }, schm)).resolves.toMatchSnapshot()
   })
 
   it('throws if value is not a function', () => {
@@ -157,7 +157,7 @@ describe('validate', () => {
         validate: 'foo',
       },
     })
-    expect(() => validate(schm, { foo: 'right' })).toThrow()
+    expect(() => validate({ foo: 'right' }, schm)).toThrow()
   })
 })
 
@@ -169,7 +169,7 @@ describe('required', () => {
         required: true,
       },
     })
-    await expect(validate(schm)).rejects.toMatchSnapshot()
+    await expect(validate(undefined, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with value and message array', async () => {
@@ -179,7 +179,7 @@ describe('required', () => {
         required: [true, 'foo'],
       },
     })
-    await expect(validate(schm)).rejects.toMatchSnapshot()
+    await expect(validate(undefined, schm)).rejects.toMatchSnapshot()
   })
 
   it('passes', async () => {
@@ -189,7 +189,7 @@ describe('required', () => {
         required: true,
       },
     })
-    await expect(validate(schm, { foo: 'foo' })).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 'foo' }, schm)).resolves.toMatchSnapshot()
   })
 })
 
@@ -201,7 +201,7 @@ describe('match', () => {
         match: /foo/,
       },
     })
-    await expect(validate(schm, { foo: 'bar' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'bar' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with value and message array', async () => {
@@ -211,7 +211,7 @@ describe('match', () => {
         match: [/foo/, 'foo'],
       },
     })
-    await expect(validate(schm, { foo: 'bar' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'bar' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('passes', async () => {
@@ -221,7 +221,7 @@ describe('match', () => {
         match: /foo/,
       },
     })
-    await expect(validate(schm, { foo: 'foo' })).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 'foo' }, schm)).resolves.toMatchSnapshot()
   })
 
   it('throws if value is not a regex', () => {
@@ -231,7 +231,7 @@ describe('match', () => {
         match: 'foo',
       },
     })
-    expect(() => validate(schm, { foo: 'foo' })).toThrow()
+    expect(() => validate({ foo: 'foo' }, schm)).toThrow()
   })
 })
 
@@ -243,7 +243,7 @@ describe('enum', () => {
         enum: ['foo', 'bar'],
       },
     })
-    await expect(validate(schm, { foo: 'baz' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'baz' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with value and message object', async () => {
@@ -253,7 +253,7 @@ describe('enum', () => {
         enum: { values: ['foo', 'bar'], message: 'foo' },
       },
     })
-    await expect(validate(schm, { foo: 'baz' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 'baz' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('passes', async () => {
@@ -263,7 +263,7 @@ describe('enum', () => {
         enum: ['foo', 'bar'],
       },
     })
-    await expect(validate(schm, { foo: 'foo' })).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 'foo' }, schm)).resolves.toMatchSnapshot()
   })
 
   it('throws if value is not an array', () => {
@@ -273,7 +273,7 @@ describe('enum', () => {
         enum: 'foo',
       },
     })
-    expect(() => validate(schm, { foo: 'foo' })).toThrow()
+    expect(() => validate({ foo: 'foo' }, schm)).toThrow()
   })
 })
 
@@ -285,7 +285,7 @@ describe('max', () => {
         max: 1,
       },
     })
-    await expect(validate(schm, { foo: 2 })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 2 }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with value and message array', async () => {
@@ -295,7 +295,7 @@ describe('max', () => {
         max: [1, 'foo'],
       },
     })
-    await expect(validate(schm, { foo: 2 })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 2 }, schm)).rejects.toMatchSnapshot()
   })
 
   it('passes', async () => {
@@ -305,7 +305,7 @@ describe('max', () => {
         max: 1,
       },
     })
-    await expect(validate(schm, { foo: 1 })).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 1 }, schm)).resolves.toMatchSnapshot()
   })
 })
 
@@ -317,7 +317,7 @@ describe('min', () => {
         min: 2,
       },
     })
-    await expect(validate(schm, { foo: 1 })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 1 }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with value and message array', async () => {
@@ -327,7 +327,7 @@ describe('min', () => {
         min: [2, 'foo'],
       },
     })
-    await expect(validate(schm, { foo: 1 })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: 1 }, schm)).rejects.toMatchSnapshot()
   })
 
   it('passes', async () => {
@@ -337,7 +337,7 @@ describe('min', () => {
         min: 2,
       },
     })
-    await expect(validate(schm, { foo: 2 })).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 2 }, schm)).resolves.toMatchSnapshot()
   })
 })
 
@@ -349,7 +349,7 @@ describe('maxlength', () => {
         maxlength: 1,
       },
     })
-    await expect(validate(schm, { foo: '12' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: '12' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with value and message array', async () => {
@@ -359,7 +359,7 @@ describe('maxlength', () => {
         maxlength: [1, 'foo'],
       },
     })
-    await expect(validate(schm, { foo: '12' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: '12' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('passes', async () => {
@@ -369,7 +369,7 @@ describe('maxlength', () => {
         maxlength: 1,
       },
     })
-    await expect(validate(schm, { foo: '1' })).resolves.toMatchSnapshot()
+    await expect(validate({ foo: '1' }, schm)).resolves.toMatchSnapshot()
   })
 })
 
@@ -381,7 +381,7 @@ describe('minlength', () => {
         minlength: 2,
       },
     })
-    await expect(validate(schm, { foo: '1' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: '1' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('fails with value and message array', async () => {
@@ -391,7 +391,7 @@ describe('minlength', () => {
         minlength: [2, 'foo'],
       },
     })
-    await expect(validate(schm, { foo: '1' })).rejects.toMatchSnapshot()
+    await expect(validate({ foo: '1' }, schm)).rejects.toMatchSnapshot()
   })
 
   it('passes', async () => {
@@ -401,7 +401,7 @@ describe('minlength', () => {
         minlength: 2,
       },
     })
-    await expect(validate(schm, { foo: '12' })).resolves.toMatchSnapshot()
+    await expect(validate({ foo: '12' }, schm)).resolves.toMatchSnapshot()
   })
 })
 
@@ -416,5 +416,5 @@ test('validator must be a function', () => {
       bar: true,
     },
   }))
-  expect(() => validate(schm, {})).toThrow()
+  expect(() => validate({}, schm)).toThrow()
 })

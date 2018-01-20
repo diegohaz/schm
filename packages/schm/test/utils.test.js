@@ -32,7 +32,7 @@ test('mapValuesToSchema', () => {
     value,
     paramPath,
   }))
-  expect(mapValuesToSchema(schm, values, fn)).toEqual({
+  expect(mapValuesToSchema(values, schm, fn)).toEqual({
     foo: {
       paramName: 'foo',
       options: {

@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import request from 'supertest'
+import schm from 'schm'
 import { query, body, errorHandler } from '../src'
 
 const createApp = (middleware) => {
@@ -16,6 +17,14 @@ const createApp = (middleware) => {
 }
 
 describe('query', () => {
+  it('handles schema', async () => {
+    const schema = schm({ foo: Boolean })
+    const querySchema = query(schema)
+    const app = createApp(querySchema)
+    const response = await request(app).post('?foo')
+    expect(response.body.query.foo).toBe(true)
+  })
+
   it('handles ?foo as foo=true', async () => {
     const schema = query({ foo: Boolean })
     const app = createApp(schema)
@@ -41,6 +50,14 @@ describe('query', () => {
 
 describe('body', () => {
   it('handles schema', async () => {
+    const schema = schm({ foo: Boolean })
+    const bodySchema = body(schema)
+    const app = createApp(bodySchema)
+    const response = await request(app).post('/').send({ foo: 1 })
+    expect(response.body.body.foo).toBe(true)
+  })
+
+  it('handles params', async () => {
     const schema = body({ foo: Boolean })
     const app = createApp(schema)
     const response = await request(app).post('/').send({ foo: 1 })

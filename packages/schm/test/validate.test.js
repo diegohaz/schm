@@ -472,6 +472,11 @@ describe('minlength', () => {
   })
 })
 
+test('without schema', async () => {
+  const params = { foo: { type: String, required: true } }
+  await expect(validate({}, params)).rejects.toMatchSnapshot()
+})
+
 test('custom option', async () => {
   const schm = schema({
     foo: {

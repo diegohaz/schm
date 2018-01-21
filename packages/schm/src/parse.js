@@ -1,5 +1,5 @@
 // @flow
-import type { Schema } from './types'
+import createSchema from './schema'
 import mapValues from './mapValues'
 
 /**
@@ -7,14 +7,15 @@ import mapValues from './mapValues'
  * @example
  * parse(
  *   { foo: 1, bar: '1' },
- *   schema({ foo: String, bar: Number }),
+ *   { foo: String, bar: Number },
  * )
  * // -> { foo: '1', bar: 1 }
  *
  * // can also be used directly from schema
  * schema({ foo: String, bar: Number }).parse({ foo: 1, bar: '1' })
  */
-const parse = (values?: Object = {}, schema: Schema): Object => {
+const parse = (values?: Object = {}, params: Object): Object => {
+  const schema = createSchema(params)
   const transformValue = (value, options, paramName, paramPath) => (
     Object.keys(options).reduce((finalValue, optionName) => {
       const option = options[optionName]

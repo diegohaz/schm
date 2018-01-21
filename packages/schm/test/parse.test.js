@@ -87,6 +87,12 @@ test('default', () => {
   expect(parse(undefined, schm2)).toEqual({ foo: 'bar' })
 })
 
+test('without schema', () => {
+  const params = { foo: String }
+  const values = { foo: 1 }
+  expect(parse(values, params)).toEqual({ foo: '1' })
+})
+
 describe('nested object', () => {
   test('empty object', () => {
     expect(parse({ foo: 2 }, schema({ foo: {} }))).toEqual({ foo: {} })

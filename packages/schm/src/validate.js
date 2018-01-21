@@ -1,5 +1,6 @@
 // @flow
-import type { Schema, ValidationError } from './types'
+import type { ValidationError } from './types'
+import createSchema from './schema'
 import mapValues from './mapValues'
 import { parseValidatorOption, toArray } from './utils'
 
@@ -68,9 +69,10 @@ const createErrorObject = (
  */
 const validate = (
   values?: Object = {},
-  schema: Schema,
+  params: Object,
   paramPathPrefix?: string,
 ): Promise<ValidationError[]> => {
+  const schema = createSchema(params)
   const parsed = schema.parse(values)
   const promises = []
   const errors = []

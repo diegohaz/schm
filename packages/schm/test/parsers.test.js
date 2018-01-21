@@ -1,3 +1,4 @@
+import schema from '../src/schema'
 import { type, set, get, lowercase, uppercase, trim, defaultParser } from '../src/parsers'
 
 describe('type', () => {
@@ -54,6 +55,15 @@ describe('type', () => {
     expect(type(/ab/, String)).toBe('/ab/')
     expect(type(/ab/, [String])).toEqual(['/ab/'])
     expect(type([1, /ab/], [String])).toEqual(['1', '/ab/'])
+  })
+
+  test('Schema', () => {
+    const schm = schema({ foo: String })
+    const value = { foo: 1 }
+    jest.spyOn(schm, 'parse')
+    expect(type(value, schm)).toEqual({ foo: '1' })
+    expect(schm.parse).toHaveBeenCalledTimes(1)
+    expect(schm.parse).toHaveBeenCalledWith(value)
   })
 })
 

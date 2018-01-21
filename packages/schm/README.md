@@ -164,6 +164,7 @@ Validates a schema based on given values.
 
 -   `values` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
 -   `schema` **[Schema](#schema)** 
+-   `paramPathPrefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 **Examples**
 

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`maps values correctly 1`] = `
+Object {
+  "grade": 5,
+  "students": Array [
+    Object {
+      "age": 20,
+      "grade": 5,
+      "name": "Maryse",
+    },
+    Object {
+      "age": 20,
+      "grade": 5,
+      "name": "Kathryne",
+    },
+    Object {
+      "age": 20,
+      "grade": 5,
+      "name": "Miller",
+    },
+    Object {
+      "age": 20,
+      "grade": 5,
+      "name": "Millie",
+    },
+    Object {
+      "age": 20,
+      "grade": 5,
+      "name": "Jennings",
+    },
+  ],
+  "subject": "optio",
+  "teacher": Object {
+    "age": 20,
+    "name": "Mervin",
+    "subjects": Array [
+      "quis",
+      "molestiae",
+      "tempora",
+    ],
+  },
+}
+`;

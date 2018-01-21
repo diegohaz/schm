@@ -1,24 +1,33 @@
 // @flow
+/* eslint-disable no-use-before-define */
 
 export type Parser = (
   value: any,
   option: any,
-  values?: Object,
+  paramPath?: string,
   options?: Object,
-  params?: Object,
+  values?: Object,
+  schema?: Schema,
 ) => any
 
 export type ValidatorResponse = {
   valid: any,
-  message?: string
+  message?: string,
+  isSchema?: boolean,
+}
+
+export type ParsedValidatorOption = {
+  optionValue: any,
+  message?: string,
 }
 
 export type Validator = (
   value: any,
   option: any,
-  values?: Object,
+  paramPath?: string,
   options?: Object,
-  params?: Object,
+  values?: Object,
+  schema?: Schema,
 ) => ValidatorResponse
 
 /** */

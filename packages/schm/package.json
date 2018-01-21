@@ -45,9 +45,12 @@
     "babel-cli": "^6.18.0",
     "documentation": "^5.3.5",
     "eslint": "^4.15.0",
+    "faker": "^4.1.0",
     "flow-bin": "^0.63.1",
+    "humps": "^2.0.1",
     "jest-cli": "^22.0.6",
     "opn-cli": "^3.1.0",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "validate.js": "^0.12.0"
   }
 }

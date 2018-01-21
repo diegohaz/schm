@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parses array nested object 1`] = `
+Object {
+  "foo": Object {
+    "type": Array [
+      Object {
+        "type": Object {
+          "merge": [Function],
+          "params": Object {
+            "bar": Object {
+              "type": [Function],
+            },
+          },
+          "parse": [Function],
+          "parsers": Object {
+            "default": [Function],
+            "get": [Function],
+            "lowercase": [Function],
+            "set": [Function],
+            "trim": [Function],
+            "type": [Function],
+            "uppercase": [Function],
+          },
+          "validate": [Function],
+          "validators": Object {
+            "enum": [Function],
+            "match": [Function],
+            "max": [Function],
+            "maxlength": [Function],
+            "min": [Function],
+            "minlength": [Function],
+            "required": [Function],
+            "type": [Function],
+            "validate": [Function],
+          },
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`parses deep array 1`] = `
+Object {
+  "foo": Object {
+    "type": Array [
+      Object {
+        "type": Array [
+          Object {
+            "type": Array [
+              Object {
+                "type": Array [
+                  Object {
+                    "type": Array [
+                      Object {
+                        "type": Array [
+                          Object {
+                            "type": [Function],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+}
+`;
+
+exports[`parses nested object 1`] = `
+Object {
+  "foo": Object {
+    "type": Object {
+      "merge": [Function],
+      "params": Object {
+        "bar": Object {
+          "type": [Function],
+        },
+      },
+      "parse": [Function],
+      "parsers": Object {
+        "default": [Function],
+        "get": [Function],
+        "lowercase": [Function],
+        "set": [Function],
+        "trim": [Function],
+        "type": [Function],
+        "uppercase": [Function],
+      },
+      "validate": [Function],
+      "validators": Object {
+        "enum": [Function],
+        "match": [Function],
+        "max": [Function],
+        "maxlength": [Function],
+        "min": [Function],
+        "minlength": [Function],
+        "required": [Function],
+        "type": [Function],
+        "validate": [Function],
+      },
+    },
+  },
+}
+`;

@@ -1,3 +1,4 @@
+import validatejs from 'validate.js'
 import schema from '../src/schema'
 import validate from '../src/validate'
 
@@ -137,7 +138,9 @@ describe('validate', () => {
         validate: () => true,
       },
     })
-    await expect(validate({ foo: 'right' }, schm)).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 'right' }, schm)).resolves.toEqual({
+      foo: 'right',
+    })
   })
 
   it('passes with promise', async () => {
@@ -147,7 +150,9 @@ describe('validate', () => {
         validate: () => Promise.resolve(),
       },
     })
-    await expect(validate({ foo: 'right' }, schm)).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 'right' }, schm)).resolves.toEqual({
+      foo: 'right',
+    })
   })
 
   it('throws if value is not a function', () => {
@@ -158,6 +163,44 @@ describe('validate', () => {
       },
     })
     expect(() => validate({ foo: 'right' }, schm)).toThrow()
+  })
+})
+
+describe('type', () => {
+  it('fails with nested schema validator', async () => {
+    const schm = schema({
+      foo: {
+        type: String,
+        validate: [() => false, 'foo'],
+      },
+    })
+    const schm2 = schema({
+      foos: [schm],
+    })
+    const values = { foos: [{ foo: 'bar' }, { foo: 'baz' }] }
+    await expect(validate(values, schm2)).rejects.toMatchSnapshot()
+  })
+
+  it('calls custom nested schema validator', async () => {
+    const customValidator = constraints => previous => previous.merge({
+      validate(values, paramPathPrefix) {
+        const parsed = previous.parse(values)
+        const transformKeys = object => (
+          Object.keys(object).reduce((finalObject, key) => ({
+            ...finalObject,
+            [[paramPathPrefix, key].join('.')]: object[key],
+          }), {})
+        )
+        const errors = validatejs(values, constraints)
+        return errors
+          ? Promise.reject(transformKeys(errors))
+          : Promise.resolve(parsed)
+      },
+    })
+    const schm = schema({ foo: String }, customValidator({ foo: { presence: true } }))
+    const schm2 = schema({ foos: [schm], bar: { type: String, required: true } })
+    const values = { foos: [{}, { foo: 'baz' }] }
+    await expect(validate(values, schm2)).rejects.toMatchSnapshot()
   })
 })
 
@@ -189,7 +232,21 @@ describe('required', () => {
         required: true,
       },
     })
-    await expect(validate({ foo: 'foo' }, schm)).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 'foo' }, schm)).resolves.toEqual({
+      foo: 'foo',
+    })
+  })
+
+  it('passes when option value is falsy', async () => {
+    const schm = schema({
+      foo: {
+        type: String,
+        required: false,
+      },
+    })
+    await expect(validate(undefined, schm)).resolves.toEqual({
+      foo: undefined,
+    })
   })
 })
 
@@ -221,7 +278,9 @@ describe('match', () => {
         match: /foo/,
       },
     })
-    await expect(validate({ foo: 'foo' }, schm)).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 'foo' }, schm)).resolves.toEqual({
+      foo: 'foo',
+    })
   })
 
   it('throws if value is not a regex', () => {
@@ -263,7 +322,9 @@ describe('enum', () => {
         enum: ['foo', 'bar'],
       },
     })
-    await expect(validate({ foo: 'foo' }, schm)).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 'foo' }, schm)).resolves.toEqual({
+      foo: 'foo',
+    })
   })
 
   it('throws if value is not an array', () => {
@@ -305,7 +366,9 @@ describe('max', () => {
         max: 1,
       },
     })
-    await expect(validate({ foo: 1 }, schm)).resolves.toMatchSnapshot()
+    await expect(validate({ foo: 1 }, schm)).resolves.toEqual({
+      foo: 1,
+    })
   })
 })
 
@@ -369,7 +432,9 @@ describe('maxlength', () => {
         maxlength: 1,
       },
     })
-    await expect(validate({ foo: '1' }, schm)).resolves.toMatchSnapshot()
+    await expect(validate({ foo: '1' }, schm)).resolves.toEqual({
+      foo: '1',
+    })
   })
 })
 
@@ -401,7 +466,22 @@ describe('minlength', () => {
         minlength: 2,
       },
     })
-    await expect(validate({ foo: '12' }, schm)).resolves.toMatchSnapshot()
+    await expect(validate({ foo: '12' }, schm)).resolves.toEqual({
+      foo: '12',
+    })
+  })
+})
+
+test('custom option', async () => {
+  const schm = schema({
+    foo: {
+      type: String,
+      bar: 'baz',
+      required: true,
+    },
+  })
+  await expect(validate({ foo: '12' }, schm)).resolves.toEqual({
+    foo: '12',
   })
 })
 

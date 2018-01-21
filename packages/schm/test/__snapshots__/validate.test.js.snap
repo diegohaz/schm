@@ -22,12 +22,6 @@ Array [
 ]
 `;
 
-exports[`enum passes 1`] = `
-Object {
-  "foo": "foo",
-}
-`;
-
 exports[`match fails with value 1`] = `
 Array [
   Object {
@@ -50,12 +44,6 @@ Array [
 ]
 `;
 
-exports[`match passes 1`] = `
-Object {
-  "foo": "foo",
-}
-`;
-
 exports[`max fails with value 1`] = `
 Array [
   Object {
@@ -71,18 +59,13 @@ Array [
 exports[`max fails with value and message array 1`] = `
 Array [
   Object {
+    "max": 1,
     "message": "foo",
     "param": "foo",
     "validator": "max",
     "value": 2,
   },
 ]
-`;
-
-exports[`max passes 1`] = `
-Object {
-  "foo": 1,
-}
 `;
 
 exports[`maxlength fails with value 1`] = `
@@ -100,18 +83,13 @@ Array [
 exports[`maxlength fails with value and message array 1`] = `
 Array [
   Object {
+    "maxlength": 1,
     "message": "foo",
     "param": "foo",
     "validator": "maxlength",
     "value": "12",
   },
 ]
-`;
-
-exports[`maxlength passes 1`] = `
-Object {
-  "foo": "1",
-}
 `;
 
 exports[`min fails with value 1`] = `
@@ -130,6 +108,7 @@ exports[`min fails with value and message array 1`] = `
 Array [
   Object {
     "message": "foo",
+    "min": 2,
     "param": "foo",
     "validator": "min",
     "value": 1,
@@ -159,17 +138,12 @@ exports[`minlength fails with value and message array 1`] = `
 Array [
   Object {
     "message": "foo",
+    "minlength": 2,
     "param": "foo",
     "validator": "minlength",
     "value": "1",
   },
 ]
-`;
-
-exports[`minlength passes 1`] = `
-Object {
-  "foo": "12",
-}
 `;
 
 exports[`required fails with value 1`] = `
@@ -189,16 +163,45 @@ Array [
   Object {
     "message": "foo",
     "param": "foo",
+    "required": true,
     "validator": "required",
     "value": undefined,
   },
 ]
 `;
 
-exports[`required passes 1`] = `
-Object {
-  "foo": "foo",
-}
+exports[`type calls custom nested schema validator 1`] = `
+Array [
+  Object {
+    "message": "bar is required",
+    "param": "bar",
+    "required": true,
+    "validator": "required",
+    "value": undefined,
+  },
+  Object {
+    "foos.0.foo": Array [
+      "Foo can't be blank",
+    ],
+  },
+]
+`;
+
+exports[`type fails with nested schema validator 1`] = `
+Array [
+  Object {
+    "message": "foo",
+    "param": "foos.0.foo",
+    "validator": "validate",
+    "value": "bar",
+  },
+  Object {
+    "message": "foo",
+    "param": "foos.1.foo",
+    "validator": "validate",
+    "value": "baz",
+  },
+]
 `;
 
 exports[`validate fails with function 1`] = `
@@ -323,36 +326,33 @@ Array [
 `;
 
 exports[`validate fails with promise 1`] = `
-Object {
-  "param": "foo",
-  "validator": "validate",
-}
+Array [
+  Object {
+    "param": "foo",
+    "validator": "validate",
+    "value": "wrong",
+  },
+]
 `;
 
 exports[`validate fails with promise and message array 1`] = `
-Object {
-  "message": "[object Promise] is wrong!",
-  "param": "foo",
-  "validator": "validate",
-}
+Array [
+  Object {
+    "message": "wrong is wrong!",
+    "param": "foo",
+    "validator": "validate",
+    "value": "wrong",
+  },
+]
 `;
 
 exports[`validate fails with promise and message object 1`] = `
-Object {
-  "message": "[object Promise] is wrong!",
-  "param": "foo",
-  "validator": "validate",
-}
-`;
-
-exports[`validate passes with function 1`] = `
-Object {
-  "foo": "right",
-}
-`;
-
-exports[`validate passes with promise 1`] = `
-Object {
-  "foo": "right",
-}
+Array [
+  Object {
+    "message": "wrong is wrong!",
+    "param": "foo",
+    "validator": "validate",
+    "value": "wrong",
+  },
+]
 `;

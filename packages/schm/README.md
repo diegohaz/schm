@@ -60,14 +60,14 @@ Parses a schema based on given values.
 **Parameters**
 
 -   `values` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
--   `schema` **[Schema](#schema)** 
+-   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 **Examples**
 
 ```javascript
 parse(
   { foo: 1, bar: '1' },
-  schema({ foo: String, bar: Number }),
+  { foo: String, bar: Number },
 )
 // -> { foo: '1', bar: 1 }
 
@@ -163,7 +163,7 @@ Validates a schema based on given values.
 **Parameters**
 
 -   `values` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
--   `schema` **[Schema](#schema)** 
+-   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 -   `paramPathPrefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 **Examples**

@@ -35,7 +35,7 @@
     "schm"
   ],
   "dependencies": {
-    "schm": "^0.3.1"
+    "schm": "^0.3.2"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

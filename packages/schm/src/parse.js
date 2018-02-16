@@ -16,7 +16,7 @@ import mapValues from './mapValues'
  */
 const parse = (values?: Object = {}, params: Object): Object => {
   const schema = createSchema(params)
-  const transformValue = (value, options, paramName, paramPath) => (
+  const transformValue = (value, options, paramName, paramPath) =>
     Object.keys(options).reduce((finalValue, optionName) => {
       const option = options[optionName]
       const parser = schema.parsers[optionName]
@@ -28,7 +28,6 @@ const parse = (values?: Object = {}, params: Object): Object => {
       }
       return finalValue
     }, value)
-  )
   return mapValues(values, schema.params, transformValue)
 }
 

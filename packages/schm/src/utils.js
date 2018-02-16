@@ -2,37 +2,32 @@
 import omit from 'lodash/omit'
 import type { Schema, ParsedValidatorOption } from './types'
 
-export const toArray = (value: any): any[] => (
+export const toArray = (value: any): any[] =>
   [].concat(typeof value === 'undefined' ? [] : value)
-)
 
 export const isArray = (value: any): boolean => Array.isArray(value)
 
-export const isSchema = (schema: ?Schema): boolean => !!(
-  schema &&
-  schema.params &&
-  schema.parsers &&
-  schema.validators &&
-  schema.parse &&
-  schema.validate &&
-  schema.merge
-)
+export const isSchema = (schema: ?Schema): boolean =>
+  !!(
+    schema &&
+    schema.params &&
+    schema.parsers &&
+    schema.validators &&
+    schema.parse &&
+    schema.validate &&
+    schema.merge
+  )
 
-export const isFunction = (value: any): boolean => (
-  typeof value === 'function'
-)
+export const isFunction = (value: any): boolean => typeof value === 'function'
 
-export const isObject = (value: any): boolean => (
-  typeof value === 'object'
-)
+export const isObject = (value: any): boolean => typeof value === 'object'
 
 export const parseValidatorOption = (
   option: any,
-  ignoreArray?: boolean
+  ignoreArray?: boolean,
 ): ParsedValidatorOption => {
-  const isArrayAndHasMessage = (v: any): boolean => (
+  const isArrayAndHasMessage = (v: any): boolean =>
     isArray(v) && v.length === 2 && typeof v[1] === 'string'
-  )
   const isValidatorObject = (v: any): boolean => v && (v.message || v.msg)
 
   if (!ignoreArray && isArrayAndHasMessage(option)) {

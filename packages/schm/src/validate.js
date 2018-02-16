@@ -4,34 +4,34 @@ import createSchema from './schema'
 import mapValues from './mapValues'
 import { parseValidatorOption, toArray } from './utils'
 
-const isPrimitive = arg => (
+const isPrimitive = arg =>
   arg == null || (typeof arg !== 'object' && typeof arg !== 'function')
-)
 
 const replaceMessage = (
   message: string,
   paramName: string,
   value: any,
-  validatorName: string
-): string => (
+  validatorName: string,
+): string =>
   message
     .replace(/\{(PARAM|PATH)\}/g, paramName)
     .replace(/\{VALUE\}/g, value)
     .replace(/\{(VALIDATOR|TYPE)\}/g, validatorName)
-)
 
 const createErrorObject = (
   param: string,
   value: any,
   validator: string,
   optionValue: any,
-  message?: string
+  message?: string,
 ): ValidationError => ({
   param,
-  ...isPrimitive(value) ? { value } : {},
+  ...(isPrimitive(value) ? { value } : {}),
   validator,
-  ...isPrimitive(optionValue) ? { [validator]: optionValue } : {},
-  ...message ? { message: replaceMessage(message, param, value, validator) } : {},
+  ...(isPrimitive(optionValue) ? { [validator]: optionValue } : {}),
+  ...(message
+    ? { message: replaceMessage(message, param, value, validator) }
+    : {}),
 })
 
 /**
@@ -78,12 +78,22 @@ const validate = (
   const errors = []
 
   const transformValue = (value, options, paramName, paramPath) => {
-    Object.keys(options).forEach((optionName) => {
-      const option = parseValidatorOption(options[optionName], optionName === 'enum')
+    Object.keys(options).forEach(optionName => {
+      const option = parseValidatorOption(
+        options[optionName],
+        optionName === 'enum',
+      )
       const validator = schema.validators[optionName]
 
       if (typeof validator === 'function') {
-        const result = validator(value, option, paramPath, options, parsed, schema)
+        const result = validator(
+          value,
+          option,
+          paramPath,
+          options,
+          parsed,
+          schema,
+        )
         const { valid, message, isSchema } = result
         const args = [paramPath, value, optionName, option.optionValue, message]
         const errorObject = createErrorObject(...args)
@@ -91,7 +101,7 @@ const validate = (
         if (!valid) {
           errors.push(errorObject)
         } else if (typeof valid.catch === 'function') {
-          const promise = valid.catch((schemaErrors) => {
+          const promise = valid.catch(schemaErrors => {
             if (isSchema) {
               return errors.push(...toArray(schemaErrors))
             }
@@ -107,15 +117,18 @@ const validate = (
 
   mapValues(parsed, schema.params, transformValue, toArray(paramPathPrefix))
 
-  return Promise.all(promises).then(() => {
-    if (errors.length) {
-      return Promise.reject(errors)
-    }
-    return parsed
-  }, (e) => {
-    const allErrors = [].concat(errors, toArray(e))
-    return Promise.reject(allErrors)
-  })
+  return Promise.all(promises).then(
+    () => {
+      if (errors.length) {
+        return Promise.reject(errors)
+      }
+      return parsed
+    },
+    e => {
+      const allErrors = [].concat(errors, toArray(e))
+      return Promise.reject(allErrors)
+    },
+  )
 }
 
 export default validate

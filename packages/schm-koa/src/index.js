@@ -1,12 +1,14 @@
 // @flow
 import schema from 'schm'
 
-const convertEmptyToTrue = (object: Object): Object => (
-  Object.keys(object).reduce((finalObject, key) => ({
-    ...finalObject,
-    [key]: object[key] === '' ? true : object[key],
-  }), {})
-)
+const convertEmptyToTrue = (object: Object): Object =>
+  Object.keys(object).reduce(
+    (finalObject, key) => ({
+      ...finalObject,
+      [key]: object[key] === '' ? true : object[key],
+    }),
+    {},
+  )
 
 /**
  * Returns a koa middleware that validates and parses querystring based
@@ -24,7 +26,10 @@ const convertEmptyToTrue = (object: Object): Object => (
  *   console.log(ctx.state.query) // { foo: true, bar: ['1', 'baz'] }
  * })
  */
-export const query = (params: Object) => async (ctx: Object, next: Function) => {
+export const query = (params: Object) => async (
+  ctx: Object,
+  next: Function,
+) => {
   const querySchema = schema(params)
   const values = convertEmptyToTrue(ctx.query)
   try {

@@ -13,12 +13,18 @@ export const type: Parser = (value, option) => {
     return value
   }
   switch (option.name) {
-    case 'RegExp': return new RegExp(value, 'i')
-    case 'Date': return new Date(/^\d{5,}$/.test(value) ? Number(value) : value)
-    case 'Boolean': return !(value === 'false' || value === '0' || !value)
-    case 'Number': return Number(value)
-    case 'Object': return Object(value)
-    default: return String(value)
+    case 'RegExp':
+      return new RegExp(value, 'i')
+    case 'Date':
+      return new Date(/^\d{5,}$/.test(value) ? Number(value) : value)
+    case 'Boolean':
+      return !(value === 'false' || value === '0' || !value)
+    case 'Number':
+      return Number(value)
+    case 'Object':
+      return Object(value)
+    default:
+      return String(value)
   }
 }
 
@@ -41,7 +47,9 @@ export const lowercase: Parser = (value, option) => {
     if (typeof value.toLowerCase === 'function') {
       return value.toLowerCase()
     }
-    throw new Error(`[schm] value must be a string to be lowercased. Instead, received ${typeof value}`)
+    throw new Error(
+      `[schm] value must be a string to be lowercased. Instead, received ${typeof value}`,
+    )
   }
   return value
 }
@@ -51,7 +59,9 @@ export const uppercase: Parser = (value, option) => {
     if (typeof value.toUpperCase === 'function') {
       return value.toUpperCase()
     }
-    throw new Error(`[schm] value must be a string to be uppercased. Instead, received ${typeof value}`)
+    throw new Error(
+      `[schm] value must be a string to be uppercased. Instead, received ${typeof value}`,
+    )
   }
   return value
 }
@@ -61,7 +71,9 @@ export const trim: Parser = (value, option) => {
     if (typeof value.trim === 'function') {
       return value.trim()
     }
-    throw new Error(`[schm] value must be a string to be trimmed. Instead, received ${typeof value}`)
+    throw new Error(
+      `[schm] value must be a string to be trimmed. Instead, received ${typeof value}`,
+    )
   }
   return value
 }

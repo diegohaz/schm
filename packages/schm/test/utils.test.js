@@ -1,5 +1,12 @@
 import schema from '../src'
-import { toArray, isArray, isSchema, isFunction, isObject, parseValidatorOption } from '../src/utils'
+import {
+  toArray,
+  isArray,
+  isSchema,
+  isFunction,
+  isObject,
+  parseValidatorOption,
+} from '../src/utils'
 
 test('toArray', () => {
   expect(toArray('foo')).toEqual(['foo'])

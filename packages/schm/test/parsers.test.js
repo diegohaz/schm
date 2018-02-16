@@ -1,5 +1,13 @@
 import schema from '../src/schema'
-import { type, set, get, lowercase, uppercase, trim, defaultParser } from '../src/parsers'
+import {
+  type,
+  set,
+  get,
+  lowercase,
+  uppercase,
+  trim,
+  defaultParser,
+} from '../src/parsers'
 
 describe('type', () => {
   test('nil value', () => {
@@ -46,7 +54,10 @@ describe('type', () => {
     expect(type('1', Object)).toEqual(Object('1'))
     expect(type(/ab/, Object)).toEqual(/ab/)
     expect(type({ foo: 'bar' }, [Object])).toEqual([{ foo: 'bar' }])
-    expect(type([{ foo: 'bar' }, /ab/], [Object])).toEqual([{ foo: 'bar' }, /ab/])
+    expect(type([{ foo: 'bar' }, /ab/], [Object])).toEqual([
+      { foo: 'bar' },
+      /ab/,
+    ])
   })
 
   test('String', () => {

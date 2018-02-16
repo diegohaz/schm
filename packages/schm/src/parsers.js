@@ -80,7 +80,7 @@ export const trim: Parser = (value, option) => {
 
 export const defaultParser: Parser = (value, option) => {
   if (value == null || value === '' || Number.isNaN(value)) {
-    return option
+    return typeof option === 'function' ? option() : option
   }
   return value
 }

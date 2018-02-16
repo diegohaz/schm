@@ -142,4 +142,5 @@ test('defaultParser', () => {
   expect(defaultParser(NaN, 'foo')).toBe('foo')
   expect(defaultParser(1, 'foo')).toBe(1)
   expect(defaultParser('bar', 'foo')).toBe('bar')
+  expect(defaultParser(undefined, () => 'foo')).toBe('foo')
 })

@@ -2,9 +2,7 @@
 import { isArray, isSchema, isFunction, isObject } from './utils'
 import { defaultSchema } from './schema'
 
-const hasType = (options: any): boolean => (
-  isObject(options) && options.type
-)
+const hasType = (options: any): boolean => isObject(options) && options.type
 
 const literalType = (options: any): Object => {
   if (isFunction(options) || isSchema(options)) {
@@ -40,11 +38,13 @@ const parseOptions = (options: any = String): Object => {
   return flow(options)
 }
 
-const parseParams = (params: Object): Object => (
-  Object.keys(params).reduce((finalParams, paramName) => ({
-    ...finalParams,
-    [paramName]: parseOptions(params[paramName]),
-  }), {})
-)
+const parseParams = (params: Object): Object =>
+  Object.keys(params).reduce(
+    (finalParams, paramName) => ({
+      ...finalParams,
+      [paramName]: parseOptions(params[paramName]),
+    }),
+    {},
+  )
 
 export default parseParams

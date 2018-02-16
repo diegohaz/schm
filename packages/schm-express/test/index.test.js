@@ -4,14 +4,16 @@ import request from 'supertest'
 import schm from 'schm'
 import { query, body, errorHandler } from '../src'
 
-const createApp = (middleware) => {
+const createApp = middleware => {
   const app = express()
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))
-  app.post('/', middleware, (req, res) => res.send({
-    query: req.query,
-    body: req.body,
-  }))
+  app.post('/', middleware, (req, res) =>
+    res.send({
+      query: req.query,
+      body: req.body,
+    }),
+  )
   app.use(errorHandler())
   return app
 }
@@ -53,14 +55,18 @@ describe('body', () => {
     const schema = schm({ foo: Boolean })
     const bodySchema = body(schema)
     const app = createApp(bodySchema)
-    const response = await request(app).post('/').send({ foo: 1 })
+    const response = await request(app)
+      .post('/')
+      .send({ foo: 1 })
     expect(response.body.body.foo).toBe(true)
   })
 
   it('handles params', async () => {
     const schema = body({ foo: Boolean })
     const app = createApp(schema)
-    const response = await request(app).post('/').send({ foo: 1 })
+    const response = await request(app)
+      .post('/')
+      .send({ foo: 1 })
     expect(response.body.body.foo).toBe(true)
   })
 

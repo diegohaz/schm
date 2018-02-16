@@ -72,23 +72,24 @@ describe('validate', () => {
   it('fails with nested param', async () => {
     const schm = schema({
       foo: {
-        bar: [{
-          type: String,
-          validate: v => v !== 'wrong',
-        }],
+        bar: [
+          {
+            type: String,
+            validate: v => v !== 'wrong',
+          },
+        ],
       },
     })
-    await expect(validate({ foo: { bar: ['right', 'wrong'] } }, schm)).rejects.toMatchSnapshot()
+    await expect(
+      validate({ foo: { bar: ['right', 'wrong'] } }, schm),
+    ).rejects.toMatchSnapshot()
   })
 
   it('fails with multiple function validators', async () => {
     const schm = schema({
       foo: {
         type: String,
-        validate: [
-          v => v !== 'wrong',
-          v => v !== 'notright',
-        ],
+        validate: [v => v !== 'wrong', v => v !== 'notright'],
       },
     })
     await expect(validate({ foo: 'wrong' }, schm)).rejects.toMatchSnapshot()
@@ -128,7 +129,9 @@ describe('validate', () => {
       foo: { type: String, validate: () => false },
       bar: { type: String, validate: () => false },
     })
-    await expect(validate({ foo: 'wrong', bar: 'wrong' }, schm)).rejects.toMatchSnapshot()
+    await expect(
+      validate({ foo: 'wrong', bar: 'wrong' }, schm),
+    ).rejects.toMatchSnapshot()
   })
 
   it('passes with function', async () => {
@@ -182,23 +185,32 @@ describe('type', () => {
   })
 
   it('calls custom nested schema validator', async () => {
-    const customValidator = constraints => previous => previous.merge({
-      validate(values, paramPathPrefix) {
-        const parsed = previous.parse(values)
-        const transformKeys = object => (
-          Object.keys(object).reduce((finalObject, key) => ({
-            ...finalObject,
-            [[paramPathPrefix, key].join('.')]: object[key],
-          }), {})
-        )
-        const errors = validatejs(values, constraints)
-        return errors
-          ? Promise.reject(transformKeys(errors))
-          : Promise.resolve(parsed)
-      },
+    const customValidator = constraints => previous =>
+      previous.merge({
+        validate(values, paramPathPrefix) {
+          const parsed = previous.parse(values)
+          const transformKeys = object =>
+            Object.keys(object).reduce(
+              (finalObject, key) => ({
+                ...finalObject,
+                [[paramPathPrefix, key].join('.')]: object[key],
+              }),
+              {},
+            )
+          const errors = validatejs(values, constraints)
+          return errors
+            ? Promise.reject(transformKeys(errors))
+            : Promise.resolve(parsed)
+        },
+      })
+    const schm = schema(
+      { foo: String },
+      customValidator({ foo: { presence: true } }),
+    )
+    const schm2 = schema({
+      foos: [schm],
+      bar: { type: String, required: true },
     })
-    const schm = schema({ foo: String }, customValidator({ foo: { presence: true } }))
-    const schm2 = schema({ foos: [schm], bar: { type: String, required: true } })
     const values = { foos: [{}, { foo: 'baz' }] }
     await expect(validate(values, schm2)).rejects.toMatchSnapshot()
   })
@@ -491,15 +503,19 @@ test('custom option', async () => {
 })
 
 test('validator must be a function', () => {
-  const schm = schema({
-    foo: {
-      type: String,
-      bar: 'baz',
+  const schm = schema(
+    {
+      foo: {
+        type: String,
+        bar: 'baz',
+      },
     },
-  }, previous => previous.merge({
-    validators: {
-      bar: true,
-    },
-  }))
+    previous =>
+      previous.merge({
+        validators: {
+          bar: true,
+        },
+      }),
+  )
   expect(() => validate({}, schm)).toThrow()
 })

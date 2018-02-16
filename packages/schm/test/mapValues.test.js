@@ -5,7 +5,10 @@ import schema from '../src/schema'
 
 const createPerson = () => ({ name: name.firstName(), age: 20 })
 const createStudent = () => ({ ...createPerson(), grade: 5 })
-const createTeacher = () => ({ ...createPerson(), subjects: times(3, lorem.word) })
+const createTeacher = () => ({
+  ...createPerson(),
+  subjects: times(3, lorem.word),
+})
 const createClass = () => ({
   grade: 5,
   subject: lorem.word(),
@@ -37,6 +40,7 @@ beforeEach(() => {
 it('maps values correctly', () => {
   const values = createClass()
   const transformValue = value => value
-  expect(mapValues(values, classSchema.params, transformValue))
-    .toMatchSnapshot()
+  expect(
+    mapValues(values, classSchema.params, transformValue),
+  ).toMatchSnapshot()
 })

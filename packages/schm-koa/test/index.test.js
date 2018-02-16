@@ -7,12 +7,12 @@ const servers = []
 
 afterAll(() => servers.map(server => server.close()))
 
-const createApp = (middleware) => {
+const createApp = middleware => {
   const app = new Koa()
   app.use(bodyParser())
   app.use(errorHandler())
   app.use(middleware)
-  app.use((ctx) => {
+  app.use(ctx => {
     ctx.body = ctx.state
   })
   const server = app.listen()
@@ -48,7 +48,9 @@ describe('body', () => {
   it('handles schema', async () => {
     const schema = body({ foo: Boolean })
     const app = createApp(schema)
-    const response = await request(app).post('/').send({ foo: 1 })
+    const response = await request(app)
+      .post('/')
+      .send({ foo: 1 })
     expect(response.body.body.foo).toBe(true)
   })
 

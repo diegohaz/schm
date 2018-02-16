@@ -18,33 +18,29 @@ test('validate', async () => {
 })
 
 test('custom parse', () => {
-  const customParse = previous => previous.merge({
-    parse(values) {
-      return decamelizeKeys(previous.parse(values))
-    },
-  })
+  const customParse = previous =>
+    previous.merge({
+      parse(values) {
+        return decamelizeKeys(previous.parse(values))
+      },
+    })
   const schm = schema({ fooBar: [{ barBaz: String }] }, customParse)
   const values = {
-    fooBar: [
-      { barBaz: 'foo' },
-      { barBaz: 'bar' },
-    ],
+    fooBar: [{ barBaz: 'foo' }, { barBaz: 'bar' }],
   }
   expect(schm.parse(values)).toEqual({
-    foo_bar: [
-      { bar_baz: 'foo' },
-      { bar_baz: 'bar' },
-    ],
+    foo_bar: [{ bar_baz: 'foo' }, { bar_baz: 'bar' }],
   })
 })
 
 test('custom validate', async () => {
-  const customValidate = constraints => previous => previous.merge({
-    async validate(values) {
-      const parsed = previous.parse(values)
-      return validatejs(parsed, constraints)
-    },
-  })
+  const customValidate = constraints => previous =>
+    previous.merge({
+      async validate(values) {
+        const parsed = previous.parse(values)
+        return validatejs(parsed, constraints)
+      },
+    })
   const constraints = { foo: { presence: true } }
   const schm = schema({ foo: String }, customValidate(constraints))
   await expect(schm.validate()).resolves.toEqual({
@@ -53,11 +49,12 @@ test('custom validate', async () => {
 })
 
 test('custom parser', () => {
-  const customParser = previous => previous.merge({
-    parsers: {
-      exclaim: value => `${value}!!`,
-    },
-  })
+  const customParser = previous =>
+    previous.merge({
+      parsers: {
+        exclaim: value => `${value}!!`,
+      },
+    })
   const params = { foo: { type: String, exclaim: true } }
   const schm = schema(params, customParser)
   const values = { foo: 'bar' }
@@ -65,28 +62,32 @@ test('custom parser', () => {
 })
 
 test('custom validator', async () => {
-  const customValidator = previous => previous.merge({
-    validators: {
-      exclamation: () => ({ valid: false }),
-    },
-  })
+  const customValidator = previous =>
+    previous.merge({
+      validators: {
+        exclamation: () => ({ valid: false }),
+      },
+    })
   const params = { foo: { type: String, exclamation: true } }
   const schm = schema(params, customValidator)
   const values = { foo: 'bar' }
-  await expect(schm.validate(values)).rejects.toEqual([{
-    exclamation: true,
-    param: 'foo',
-    validator: 'exclamation',
-    value: 'bar',
-  }])
+  await expect(schm.validate(values)).rejects.toEqual([
+    {
+      exclamation: true,
+      param: 'foo',
+      validator: 'exclamation',
+      value: 'bar',
+    },
+  ])
 })
 
 test('custom params', () => {
-  const customParams = previous => previous.merge({
-    params: {
-      bar: String,
-    },
-  })
+  const customParams = previous =>
+    previous.merge({
+      params: {
+        bar: String,
+      },
+    })
   const schm = schema({ foo: String }, customParams)
   const values = { foo: 1, bar: 2 }
   expect(schm.parse(values)).toEqual({ foo: '1', bar: '2' })
@@ -94,34 +95,43 @@ test('custom params', () => {
 
 describe('composition', () => {
   it('composes schema group', () => {
-    const concatWithFoo = params => previous => previous.merge({
-      params,
-      parsers: {
-        foo: (value, option) => `${value}${option}`,
-      },
-    })
-
-    const concatWithDefaultValue = params => previous => previous.merge({
-      params: Object.keys(params).reduce((finalParams, name) => ({
-        ...finalParams,
-        [name]: {
-          bar: params[name],
+    const concatWithFoo = params => previous =>
+      previous.merge({
+        params,
+        parsers: {
+          foo: (value, option) => `${value}${option}`,
         },
-      }), {}),
-      parsers: {
-        bar: (value, option) => `${value}${option}`,
-      },
-    })
+      })
 
-    const schm = schema({
-      name: String,
-    }, concatWithFoo({
-      name: {
-        foo: 'foo',
+    const concatWithDefaultValue = params => previous =>
+      previous.merge({
+        params: Object.keys(params).reduce(
+          (finalParams, name) => ({
+            ...finalParams,
+            [name]: {
+              bar: params[name],
+            },
+          }),
+          {},
+        ),
+        parsers: {
+          bar: (value, option) => `${value}${option}`,
+        },
+      })
+
+    const schm = schema(
+      {
+        name: String,
       },
-    }), concatWithDefaultValue({
-      name: 'bar',
-    }))
+      concatWithFoo({
+        name: {
+          foo: 'foo',
+        },
+      }),
+      concatWithDefaultValue({
+        name: 'bar',
+      }),
+    )
 
     expect(schm.parse({ name: 'test' })).toEqual({ name: 'testfoobar' })
   })
@@ -144,7 +154,7 @@ test('group', () => {
     group(),
     group({
       bar: String,
-    })
+    }),
   )
   const values = { foo: 1, bar: 2 }
   expect(schm.parse(values)).toEqual({ foo: '1', bar: '2' })

@@ -3,17 +3,22 @@ import computed from '../src'
 
 describe('computed', () => {
   it('works', () => {
-    const schm = schema({
-      firstName: String,
-      lastName: String,
-    }, computed({
-      fullName: values => `${values.firstName} ${values.lastName}`,
-    }))
+    const schm = schema(
+      {
+        firstName: String,
+        lastName: String,
+      },
+      computed({
+        fullName: values => `${values.firstName} ${values.lastName}`,
+      }),
+    )
 
-    expect(schm.parse({
-      firstName: 'Diego',
-      lastName: 'Haz',
-    })).toEqual({
+    expect(
+      schm.parse({
+        firstName: 'Diego',
+        lastName: 'Haz',
+      }),
+    ).toEqual({
       firstName: 'Diego',
       lastName: 'Haz',
       fullName: 'Diego Haz',
@@ -21,16 +26,21 @@ describe('computed', () => {
   })
 
   it('throws', () => {
-    const schm = schema({
-      firstName: String,
-      lastName: String,
-    }, computed({
-      fullName: 'foo',
-    }))
+    const schm = schema(
+      {
+        firstName: String,
+        lastName: String,
+      },
+      computed({
+        fullName: 'foo',
+      }),
+    )
 
-    expect(() => schm.parse({
-      firstName: 'Diego',
-      lastName: 'Haz',
-    })).toThrow()
+    expect(() =>
+      schm.parse({
+        firstName: 'Diego',
+        lastName: 'Haz',
+      }),
+    ).toThrow()
   })
 })

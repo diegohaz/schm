@@ -2,19 +2,30 @@
 import type { Validator } from './types'
 import { isArray, isSchema, parseValidatorOption } from './utils'
 
-export const validate: Validator = (value, option, paramPath, options, values, schema) => {
+export const validate: Validator = (
+  value,
+  option,
+  paramPath,
+  options,
+  values,
+  schema,
+) => {
   const { optionValue, message } = option
   if (isArray(optionValue)) {
-    return optionValue.reduce((response, currentOption) => (
-      !response.valid ? response : validate(
-        value,
-        parseValidatorOption(currentOption),
-        paramPath,
-        options,
-        values,
-        schema,
-      )
-    ), { valid: true })
+    return optionValue.reduce(
+      (response, currentOption) =>
+        !response.valid
+          ? response
+          : validate(
+              value,
+              parseValidatorOption(currentOption),
+              paramPath,
+              options,
+              values,
+              schema,
+            ),
+      { valid: true },
+    )
   }
   if (typeof optionValue !== 'function') {
     throw new Error('[schm] validate must be a function')
@@ -62,7 +73,9 @@ export const enumValidator: Validator = (value, option) => {
   }
   return {
     valid: optionValue.indexOf(value) >= 0,
-    message: message || `{PARAM} must be one of the following: ${optionValue.join(', ')}`,
+    message:
+      message ||
+      `{PARAM} must be one of the following: ${optionValue.join(', ')}`,
   }
 }
 
@@ -86,7 +99,8 @@ export const maxlength: Validator = (value, option) => {
   const { optionValue, message } = option
   return {
     valid: typeof value === 'undefined' || value.length <= optionValue,
-    message: message || `{PARAM} length must be lower than or equal ${optionValue}`,
+    message:
+      message || `{PARAM} length must be lower than or equal ${optionValue}`,
   }
 }
 
@@ -94,7 +108,8 @@ export const minlength: Validator = (value, option) => {
   const { optionValue, message } = option
   return {
     valid: typeof value === 'undefined' || value.length >= optionValue,
-    message: message || `{PARAM} length must be greater than or equal ${optionValue}`,
+    message:
+      message || `{PARAM} length must be greater than or equal ${optionValue}`,
   }
 }
 

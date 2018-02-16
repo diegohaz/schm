@@ -42,8 +42,8 @@ export const defaultSchema = (params?: Object = {}): Schema => ({
  * )
  */
 export const group = (params?: Object = {}): SchemaGroup => (
-  (previous: Schema): Schema => previous.merge(defaultSchema(params))
-)
+  previous: Schema,
+): Schema => previous.merge(defaultSchema(params))
 
 /**
  * Creates a schema by composing groups of parameters.

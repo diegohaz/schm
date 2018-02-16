@@ -2,17 +2,19 @@ import schema from '../src/schema'
 import parse from '../src/parse'
 
 it('throws when parser is not a function', () => {
-  const schm = schema(previous => previous.merge({
-    params: {
-      foo: {
-        type: String,
-        bar: 'baz',
+  const schm = schema(previous =>
+    previous.merge({
+      params: {
+        foo: {
+          type: String,
+          bar: 'baz',
+        },
       },
-    },
-    parsers: {
-      bar: 'notfunction',
-    },
-  }))
+      parsers: {
+        bar: 'notfunction',
+      },
+    }),
+  )
   expect(() => parse({ foo: 'foo' }, schm)).toThrow()
 })
 
@@ -133,21 +135,29 @@ describe('nested object', () => {
 describe('nested schema', () => {
   test('calls parse from previous schema', () => {
     const fn = jest.fn(v => v)
-    const schm1 = schema({
-      bar: String,
-    }, previous => previous.merge({
-      parse(values) {
-        return fn(previous.parse(values))
+    const schm1 = schema(
+      {
+        bar: String,
       },
-    }))
-    const schm2 = schema({
-      foo: [schm1],
-    }, previous => previous.merge({
-      parse(values) {
-        // it should not be called because we aren't using schm2.parse
-        return fn(previous.parse(values))
+      previous =>
+        previous.merge({
+          parse(values) {
+            return fn(previous.parse(values))
+          },
+        }),
+    )
+    const schm2 = schema(
+      {
+        foo: [schm1],
       },
-    }))
+      previous =>
+        previous.merge({
+          parse(values) {
+            // it should not be called because we aren't using schm2.parse
+            return fn(previous.parse(values))
+          },
+        }),
+    )
     const values = {
       foo: [{ bar: 'baz' }, { bar: 'qux' }],
     }

@@ -1,5 +1,5 @@
 // @flow
-import type { ValidationError } from './types'
+import type { ValidationError } from '.'
 import createSchema from './schema'
 import mapValues from './mapValues'
 import { parseValidatorOption, toArray } from './utils'

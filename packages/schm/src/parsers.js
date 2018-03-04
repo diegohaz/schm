@@ -1,5 +1,5 @@
 // @flow
-import type { Parser } from './types'
+import type { Parser } from '.'
 import { toArray, isArray, isSchema } from './utils'
 
 export const type: Parser = (value, option) => {

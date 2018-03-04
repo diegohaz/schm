@@ -45,62 +45,14 @@ The way you declare the schema object is very similar to [mongoose Schemas](http
 
 #### Table of Contents
 
--   [parse](#parse)
--   [group](#group)
 -   [schema](#schema)
--   [ValidationError](#validationerror)
--   [Schema](#schema-1)
--   [SchemaGroup](#schemagroup)
+-   [parse](#parse)
 -   [validate](#validate)
-
-### parse
-
-Parses a schema based on given values.
-
-**Parameters**
-
--   `values` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
--   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-**Examples**
-
-```javascript
-parse(
-  { foo: 1, bar: '1' },
-  { foo: String, bar: Number },
-)
-// -> { foo: '1', bar: 1 }
-
-// can also be used directly from schema
-schema({ foo: String, bar: Number }).parse({ foo: 1, bar: '1' })
-```
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### group
-
-A simple group of parameters. It's used internally when you pass literal
-objects to [`schema`](#schema).
-
-**Parameters**
-
--   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
-
-**Examples**
-
-```javascript
-const userSchema = schema(
-  group({
-    id: String,
-    name: String,
-  }),
-  group({
-    age: Number,
-  })
-)
-```
-
-Returns **[SchemaGroup](#schemagroup)** 
+-   [group](#group)
+-   [Types](#types)
+    -   [Schema](#schema-1)
+    -   [SchemaGroup](#schemagroup)
+    -   [ValidationError](#validationerror)
 
 ### schema
 
@@ -128,33 +80,29 @@ const teamSchema = schema({
 
 Returns **[Schema](#schema)** 
 
-### ValidationError
+### parse
 
-Type: {param: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: any?, validator: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), message: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?}
+Parses a schema based on given values.
 
-**Properties**
+**Parameters**
 
--   `param` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `value` **any?** 
--   `validator` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
-
-### Schema
-
-Type: {params: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object), parsers: {}, validators: {}, parse: function (values: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object), validate: function (values: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[ValidationError](#validationerror)>>, merge: function (): [Schema](#schema)}
-
-**Properties**
-
+-   `values` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `parsers` **{}** 
--   `validators` **{}** 
--   `parse` **function (values: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `validate` **function (values: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[ValidationError](#validationerror)>>** 
--   `merge` **function (): [Schema](#schema)** 
 
-### SchemaGroup
+**Examples**
 
-Type: function (previous: [Schema](#schema)): [Schema](#schema)
+```javascript
+parse(
+  { foo: 1, bar: '1' },
+  { foo: String, bar: Number },
+)
+// -> { foo: '1', bar: 1 }
+
+// can also be used directly from schema
+schema({ foo: String, bar: Number }).parse({ foo: 1, bar: '1' })
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### validate
 
@@ -201,6 +149,64 @@ Oops! [{
 ```
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[ValidationError](#validationerror)>>** 
+
+### group
+
+A simple group of parameters. It's used internally when you pass literal
+objects to [`schema`](#schema).
+
+**Parameters**
+
+-   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+
+**Examples**
+
+```javascript
+const userSchema = schema(
+  group({
+    id: String,
+    name: String,
+  }),
+  group({
+    age: Number,
+  })
+)
+```
+
+Returns **[SchemaGroup](#schemagroup)** 
+
+### Types
+
+
+
+
+#### Schema
+
+Type: {params: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object), parsers: {}, validators: {}, parse: function (values: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object), validate: function (values: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[ValidationError](#validationerror)>>, merge: function (): [Schema](#schema)}
+
+**Properties**
+
+-   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `parsers` **{}** 
+-   `validators` **{}** 
+-   `parse` **function (values: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `validate` **function (values: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[ValidationError](#validationerror)>>** 
+-   `merge` **function (): [Schema](#schema)** 
+
+#### SchemaGroup
+
+Type: function (previous: [Schema](#schema)): [Schema](#schema)
+
+#### ValidationError
+
+Type: {param: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: any?, validator: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), message: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?}
+
+**Properties**
+
+-   `param` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `value` **any?** 
+-   `validator` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
 
 ## License
 

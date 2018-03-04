@@ -1,6 +1,6 @@
 // @flow
 import merge from 'lodash/merge'
-import type { Schema, SchemaGroup } from './types'
+import type { Schema, SchemaGroup } from '.'
 import { isSchema } from './utils'
 import parsers from './parsers'
 import validators from './validators'

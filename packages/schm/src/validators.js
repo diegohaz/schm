@@ -1,5 +1,5 @@
 // @flow
-import type { Validator } from './types'
+import type { Validator } from '.'
 import { isArray, isSchema, parseValidatorOption } from './utils'
 
 export const validate: Validator = (

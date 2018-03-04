@@ -1,6 +1,6 @@
 // @flow
 import omit from 'lodash/omit'
-import type { Schema, ParsedValidatorOption } from './types'
+import type { Schema, ParsedValidatorOption } from '.'
 
 export const toArray = (value: any): any[] =>
   [].concat(typeof value === 'undefined' ? [] : value)

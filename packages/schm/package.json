@@ -43,10 +43,10 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "documentation": "^5.3.5",
+    "documentation": "^6.0.0",
     "eslint": "^4.15.0",
     "faker": "^4.1.0",
-    "flow-bin": "^0.63.1",
+    "flow-bin": "^0.66.0",
     "humps": "^2.0.1",
     "jest-cli": "^22.0.6",
     "opn-cli": "^3.1.0",

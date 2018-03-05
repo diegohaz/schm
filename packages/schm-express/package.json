@@ -40,10 +40,10 @@
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "body-parser": "^1.18.2",
-    "documentation": "5.3.5",
+    "documentation": "6.0.0",
     "eslint": "^4.15.0",
     "express": "^4.16.2",
-    "flow-bin": "^0.63.1",
+    "flow-bin": "^0.66.0",
     "jest-cli": "^22.0.6",
     "opn-cli": "^3.1.0",
     "rimraf": "^2.6.1",

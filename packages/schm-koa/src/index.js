@@ -1,5 +1,6 @@
 // @flow
 import schema from 'schm'
+import qs from 'qs'
 
 const convertEmptyToTrue = (object: Object): Object =>
   Object.keys(object).reduce(
@@ -31,7 +32,7 @@ export const query = (params: Object) => async (
   next: Function,
 ) => {
   const querySchema = schema(params)
-  const values = convertEmptyToTrue(ctx.query)
+  const values = qs.parse(convertEmptyToTrue(ctx.query))
   try {
     ctx.state.query = await querySchema.validate(values)
     next()

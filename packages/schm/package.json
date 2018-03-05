@@ -26,7 +26,7 @@
     "clean": "rimraf dist",
     "prebuild": "npm run docs && npm run clean",
     "build": "babel src -d dist --copy-files",
-    "prepublish": "npm run lint && npm test && npm run build"
+    "prepublishOnly": "npm run lint && npm test && npm run build"
   },
   "jest": {
     "testEnvironment": "node"

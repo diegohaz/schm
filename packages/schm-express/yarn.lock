@@ -4873,9 +4873,9 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-schm@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/schm/-/schm-0.3.3.tgz#5e3a46792fa0a31229340bf482e13e02d9d25c16"
+schm@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/schm/-/schm-0.3.4.tgz#25958ff1fef7401409647c7dd76e98f879715962"
   dependencies:
     lodash "^4.17.4"
 

@@ -41,6 +41,13 @@ describe('query', () => {
     expect(response.body.query.foo).toEqual(['1', 'baz'])
   })
 
+  it('handles nested object in querystring', async () => {
+    const schema = query({ foo: { bar: String } })
+    const app = createApp(schema)
+    const response = await request(app).post('?foo[bar]=1')
+    expect(response.body.query.foo).toEqual({ bar: '1' })
+  })
+
   it('handles errors', async () => {
     const schema = query({ foo: { type: Boolean, required: true } })
     const app = createApp(schema)

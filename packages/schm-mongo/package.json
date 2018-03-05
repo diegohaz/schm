@@ -1,0 +1,59 @@
+{
+  "name": "schm-mongo",
+  "version": "0.0.0",
+  "description": "Composable, immutable, parseable and validatable (yeah, many *ables) schemas for Node/JavaScript",
+  "license": "MIT",
+  "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm-mongo",
+  "main": "dist/index.js",
+  "author": {
+    "name": "Diego Haz",
+    "email": "hazdiego@gmail.com",
+    "url": "https://github.com/diegohaz"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "coverage": "npm test -- --coverage",
+    "postcoverage": "opn coverage/lcov-report/index.html",
+    "lint": "eslint src test",
+    "flow": "flow",
+    "docs": "documentation readme src --section=API",
+    "clean": "rimraf dist",
+    "prebuild": "npm run docs && npm run clean",
+    "build": "babel src -d dist",
+    "postinstall": "npm run build",
+    "prepublishOnly": "npm run lint && npm test && npm run build"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "keywords": [
+    "schm",
+    "schema",
+    "scheme",
+    "parser",
+    "validator",
+    "mongo",
+    "mongodb"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "documentation": "^6.0.0",
+    "eslint": "^4.18.2",
+    "flow-bin": "^0.66.0",
+    "jest-cli": "^22.4.2",
+    "opn-cli": "^3.1.0",
+    "rimraf": "^2.6.1"
+  },
+  "peerDependencies": {
+    "schm": "^0.3.4"
+  }
+}

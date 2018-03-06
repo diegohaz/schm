@@ -1,10 +1,9 @@
 // @flow
-import get from 'lodash/get'
 import omit from 'lodash/omit'
 
-const parsePaths = (values: Object, params: Object): Object =>
+const parsePaths = (values: Object, pathsMap: Object): Object =>
   Object.keys(values).reduce((finalObject, key) => {
-    const { paths } = get(params, key)
+    const paths = pathsMap[key]
     const value = values[key]
 
     if (!paths) {

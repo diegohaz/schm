@@ -13,7 +13,7 @@ const flatten = (object: Object, keys: string[] = []): Object =>
     const value = Array.isArray(object[key]) ? object[key][0] : object[key]
     const allKeys = [...keys, key]
 
-    if (typeof value === 'object') {
+    if (value && typeof value === 'object' && value.constructor === Object) {
       return {
         ...finalObject,
         ...flatten(value, allKeys),

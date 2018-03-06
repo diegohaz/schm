@@ -12,6 +12,10 @@ export const operator: Parser = (value, option) => {
     }
   }
 
+  if (option === '$eq') {
+    return value
+  }
+
   return { [option]: value }
 }
 

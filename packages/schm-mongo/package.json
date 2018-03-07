@@ -22,10 +22,10 @@
     "postcoverage": "opn coverage/lcov-report/index.html",
     "lint": "eslint src test",
     "flow": "flow",
-    "docs": "documentation readme src --section=API",
+    "docs": "documentation readme src --section=API --pe flow -c documentation.yml",
     "clean": "rimraf dist",
     "prebuild": "npm run docs && npm run clean",
-    "build": "babel src -d dist",
+    "build": "babel src -d dist --copy-files",
     "postinstall": "npm run build",
     "prepublishOnly": "npm run lint && npm test && npm run build"
   },

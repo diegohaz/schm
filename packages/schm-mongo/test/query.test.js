@@ -7,10 +7,7 @@ describe('query', () => {
       {
         title: RegExp,
         date: Date,
-        after: {
-          type: Date,
-          operator: '$gte',
-        },
+        after: { type: Date, operator: '$gte' },
       },
       query({
         after: ['date'],
@@ -32,16 +29,28 @@ describe('query', () => {
         title: String,
         description: String,
         term: RegExp,
+        after: { type: Date, operator: '$gte' },
+        before: { type: Date, operator: '$lte' },
       },
       query({
         term: ['title', 'description'],
+        after: ['date'],
+        before: ['date'],
       }),
     )
     const values = {
       term: 'foo',
+      after: '2018-01-01',
+      before: '2018-03-03',
     }
     expect(schm.parse(values)).toEqual({
-      $or: [{ title: /foo/i }, { description: /foo/i }],
+      $and: [
+        {
+          $or: [{ title: /foo/i }, { description: /foo/i }],
+        },
+        { date: { $gte: new Date('2018-01-01') } },
+        { date: { $lte: new Date('2018-03-03') } },
+      ],
     })
   })
 })

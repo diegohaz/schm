@@ -7,6 +7,7 @@ const fields = () => previous =>
           if (!value) return value
           return value
             .split(',')
+            .map(v => v.trim())
             .map(v => ({
               [v.replace(/^[+-]/, '')]: v.indexOf('-') === 0 ? 0 : 1,
             }))

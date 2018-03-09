@@ -60,4 +60,17 @@ describe('fields', () => {
       },
     })
   })
+
+  test('string', () => {
+    const schm = schema(fields())
+    const values = {
+      fields: '-foo, bar',
+    }
+    expect(schm.parse(values)).toEqual({
+      fields: {
+        foo: 0,
+        bar: 1,
+      },
+    })
+  })
 })

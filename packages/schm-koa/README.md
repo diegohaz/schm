@@ -12,7 +12,7 @@ Koa middlewares that leverages schm to parse and validate request query and body
 
 ```js
 const koa = require('koa')
-const bodyParser = require('body-parser')
+const bodyParser = require('koa-bodyparser')
 const { query, body, errorHandler } = require('schm-koa')
 
 const app = new Koa()

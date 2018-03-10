@@ -37,6 +37,9 @@ const createErrorObject = (
 /**
  * Validates a schema based on given values.
  * @example
+ * const schema = require('schm')
+ * const { validate } = schema
+ *
  * const userSchema = schema({
  *   name: {
  *     type: String,
@@ -56,16 +59,14 @@ const createErrorObject = (
  *     console.log('Oops!', errors)
  *   })
  *
- * \/*
- * Output:
- * Oops! [{
- *   param: 'age',
- *   value: 17,
- *   validator: 'min',
- *   min: 18,
- *   message: 'Too young',
- * }]
- * *\/
+ * // Output:
+ * // Oops! [{
+ * //   param: 'age',
+ * //   value: 17,
+ * //   validator: 'min',
+ * //   min: 18,
+ * //   message: 'Too young',
+ * // }]
  */
 const validate = (
   values?: Object = {},

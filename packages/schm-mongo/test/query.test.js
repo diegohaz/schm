@@ -2,6 +2,24 @@ import schema from '../../schm/src'
 import query from '../src/query'
 
 describe('query', () => {
+  test('simple without paths', () => {
+    const schm = schema(
+      {
+        title: RegExp,
+        date: Date,
+      },
+      query(),
+    )
+    const values = {
+      title: 'foo',
+      date: '2018-01-01',
+    }
+    expect(schm.parse(values)).toEqual({
+      title: /foo/i,
+      date: new Date('2018-01-01'),
+    })
+  })
+
   test('single path', () => {
     const schm = schema(
       {

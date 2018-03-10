@@ -1,4 +1,4 @@
 export query from './query'
 export fields from './fields'
-export cursor from './cursor'
-export geo from './geo'
+export page from './page'
+export near from './near'

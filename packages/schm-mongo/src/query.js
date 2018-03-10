@@ -8,6 +8,24 @@ import type { PathsMap } from '.'
 /**
  * Applies `operator` parser to the schema. Also translates fields to paths.
  * @example
+ * const schema = require('schm')
+ * const { query } = require('schm-mongo')
+ *
+ * const querySchema = schema({
+ *   name: String,
+ *   age: Number,
+ * }, query())
+ *
+ * const parsed = querySchema.parse({ name: 'Haz', age: 27 })
+ * // {
+ * //   name: 'Haz',
+ * //   age: 27,
+ * // }
+ * db.collection.find(parsed)
+ * @example
+ * const schema = require('schm')
+ * const { query } = require('schm-mongo')
+ *
  * const querySchema = schema({
  *   term: RegExp,
  *   after: { type: Date, operator: '$gte' },
@@ -18,7 +36,11 @@ import type { PathsMap } from '.'
  *   before: 'date',
  * }))
  *
- * querySchema.parse({ term: 'foo', after: '2018-01-01', before: '2018-03-03' })
+ * const parsed = querySchema.parse({
+ *   term: 'foo',
+ *   after: '2018-01-01',
+ *   before: '2018-03-03',
+ * })
  * // {
  * //   $and: [
  * //     { $or: [{ title: /foo/i }, { description: /foo/i }] },
@@ -26,8 +48,9 @@ import type { PathsMap } from '.'
  * //     { date: { $lte: 1520035200000 } },
  * //   ],
  * // }
+ * db.collection.find(parsed)
  */
-const query = (pathsMap: PathsMap) => (previous: any) =>
+const query = (pathsMap: PathsMap = {}) => (previous: any) =>
   previous.merge({
     parsers,
     parse(values) {

@@ -1,43 +1,67 @@
-# schm
+# schm-mongo
 
-[![NPM version](https://img.shields.io/npm/v/schm.svg?style=flat-square)](https://npmjs.org/package/schm)
+[![NPM version](https://img.shields.io/npm/v/schm-mongo.svg?style=flat-square)](https://npmjs.org/package/schm-mongo)
+
+Composable schema creators for parsing values to `MongoDB` queries.
 
 ## Install
 
-    $ npm install --save schm
+    $ npm install --save schm-mongo
 
 ## Usage
 
 ```js
 const schema = require('schm')
+const { query, fields, page, near } = require('schm-mongo')
 
-const userSchema = schema({
+const placeSchema = schema({
   name: String,
-  age: Number,
-  height: Number,
-  skills: [RegExp],
+  location: [Number]
 })
 
-const user = userSchema.parse({ 
-  name: 'Haz', 
-  age: '27', 
-  height: '1.88', 
-  skills: ['code', 'design', 'astronomy'],
+const querySchema = schema(
+  placeSchema,
+  query(),
+  fields(),
+  page(),
+  near('location'),
+)
+
+...
+
+const { fields, page, ...query } = querySchema.parse({
+  fields: 'name',
+  near: '-22.4321,40.4321',
+  min_distance: 1000,
+  max_distance: 2000,
+  limit: 10,
 })
+/*
+  parsed:
+  {
+    location: { 
+      $near: { 
+        $geometry: { type: 'Point', coordinates: [-22.4321, 40.4321] },
+        $minDistance: 1000,
+        $maxDistance: 2000,
+      },
+    },
+    fields: { name: 1 },
+    page: {
+      limit: 10,
+    },
+  }
+*/
+
+// with mongodb driver
+db.collection.find(query, fields)
+  .limit(page.limit)
+  .skip(page.skip)
+  .sort(page.sort)
+
+// with mongoose
+Model.find(query, fields, page)
 ```
-
-Output:
-
-```js
-{
-  name: 'Haz',
-  age: 27,
-  height: 1.88,
-  skills: [/code/i, /design/i, /astronomy/i],
-}
-```
-
-The way you declare the schema object is very similar to [mongoose Schemas](http://mongoosejs.com/docs/guide.html). So, refer to their docs to learn more.
 
 ## API
 
@@ -46,6 +70,7 @@ The way you declare the schema object is very similar to [mongoose Schemas](http
 #### Table of Contents
 
 -   [query](#query)
+-   [fields](#fields)
 -   [Types](#types)
     -   [PathsMap](#pathsmap)
 
@@ -55,11 +80,31 @@ Applies `operator` parser to the schema. Also translates fields to paths.
 
 **Parameters**
 
--   `pathsMap` **[PathsMap](#pathsmap)** 
+-   `pathsMap` **[PathsMap](#pathsmap)**  (optional, default `{}`)
 
 **Examples**
 
 ```javascript
+const schema = require('schm')
+const { query } = require('schm-mongo')
+
+const querySchema = schema({
+  name: String,
+  age: Number,
+}, query())
+
+const parsed = querySchema.parse({ name: 'Haz', age: 27 })
+// {
+//   name: 'Haz',
+//   age: 27,
+// }
+db.collection.find(parsed)
+```
+
+```javascript
+const schema = require('schm')
+const { query } = require('schm-mongo')
+
 const querySchema = schema({
   term: RegExp,
   after: { type: Date, operator: '$gte' },
@@ -70,7 +115,11 @@ const querySchema = schema({
   before: 'date',
 }))
 
-querySchema.parse({ term: 'foo', after: '2018-01-01', before: '2018-03-03' })
+const parsed = querySchema.parse({
+  term: 'foo',
+  after: '2018-01-01',
+  before: '2018-03-03',
+})
 // {
 //   $and: [
 //     { $or: [{ title: /foo/i }, { description: /foo/i }] },
@@ -78,6 +127,64 @@ querySchema.parse({ term: 'foo', after: '2018-01-01', before: '2018-03-03' })
 //     { date: { $lte: 1520035200000 } },
 //   ],
 // }
+db.collection.find(parsed)
+```
+
+### fields
+
+Defines a `fields` parameter and parses it into [MongoDB projection](https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/).
+
+**Examples**
+
+```javascript
+const schema = require('schm')
+const { fields } = require('schm-mongo')
+
+const fieldsSchema = schema(fields())
+const parsed = fieldsSchema.parse({ fields: ['-_id', 'name'] })
+// {
+//   fields: {
+//     _id: 0,
+//     name: 1,
+//   }
+// }
+db.collection.find({}, parsed.fields)
+```
+
+```javascript
+// Configuring fields parameter
+const schema = require('schm')
+const { fields } = require('schm-mongo')
+
+const fieldsSchema = schema({
+  fields: {
+    type: String,
+    validate: [value => value._id !== 0, 'Cannot hide _id'],
+  },
+}, fields())
+
+fieldsSchema.validate({ fields: ['-_id'] }) // error
+```
+
+```javascript
+// Renaming fields
+const schema = require('schm')
+const translate = require('schm-translate')
+const { fields } = require('schm-mongo')
+
+const fieldsSchema = schema(
+  fields(),
+  translate({ fields: 'select' })
+)
+
+const parsed = fieldsSchema.parse({ select: ['-_id', 'name'] })
+// {
+//   fields: {
+//     _id: 0,
+//     name: 1,
+//   }
+// }
+db.collection.find({}, parsed.fields)
 ```
 
 ### Types
@@ -88,6 +195,47 @@ querySchema.parse({ term: 'foo', after: '2018-01-01', before: '2018-03-03' })
 #### PathsMap
 
 Type: {}
+
+### 
+
+Pagination: parses `page`, `limit` and `sort` parameters into properties to be used within [MongoDB cursor methods](https://docs.mongodb.com/manual/reference/method/js-cursor).
+
+**Examples**
+
+```javascript
+const schema = require('schm')
+const { page } = require('schm-mongo')
+
+const pageSchema = schema(page())
+const parsed = pageSchema.parse({ page: 3, limit: 30, sort: 'createdAt' })
+// {
+//   page: {
+//     limit: 30,
+//     skip: 60,
+//     sort: { createdAt: 1 },
+//   }
+// }
+```
+
+```javascript
+// Renaming page parameters
+const schema = require('schm')
+const translate = require('schm-translate')
+const { page } = require('schm-mongo')
+
+const pageSchema = schema(
+  page(),
+  translate({ page: 'p', limit: 'size', sort: 'sort_by' })
+)
+const parsed = pageSchema.parse({ p: 3, size: 30, sort_by: 'createdAt' })
+// {
+//   page: {
+//     limit: 30,
+//     skip: 60,
+//     sort: { createdAt: 1 },
+//   }
+// }
+```
 
 ## License
 

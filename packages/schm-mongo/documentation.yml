@@ -1,5 +1,8 @@
 toc:
   - query
+  - fields
+  - page
+  - near
   - name: Types
     children:
       - PathsMap

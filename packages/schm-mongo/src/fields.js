@@ -1,6 +1,5 @@
-import type { Schema, SchemaGroup } from 'schm'
-
 // @flow
+import type { Schema, SchemaGroup } from 'schm'
 
 /**
  * Defines a `fields` parameter and parses it into [MongoDB projection](https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/).

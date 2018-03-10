@@ -16,7 +16,11 @@ export const operator: Parser = (value, option) => {
     return value
   }
 
-  return { [option]: value }
+  if (option) {
+    return { [option]: value }
+  }
+
+  return value
 }
 
 export default {

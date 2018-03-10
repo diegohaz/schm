@@ -4,7 +4,58 @@ import merge from 'lodash/merge'
 import removeUndefined from './removeUndefined'
 
 /**
- * Cacete.
+ * Creates a [geospatial query](https://docs.mongodb.com/manual/geospatial-queries/) based on values.
+ * @example
+ * const schema = require('schm')
+ * const { near } = require('schm-mongo')
+ *
+ * const nearSchema = schema(near('location'))
+ *
+ * const parsed = nearSchema.parse({
+ *   near: '-20.4321,44.4321',
+ *   min_distance: 1000,
+ *   max_distance: 2000,
+ * })
+ * // {
+ * //   location: {
+ * //     $near: {
+ * //       $geometry: {
+ * //         type: 'Point',
+ * //         coordinates: [-20.4321, 44.4321],
+ * //       },
+ * //       $minDistance: 1000,
+ * //       $maxDistance: 2000,
+ * //     },
+ * //   }
+ * // }
+ * @example
+ * // renaming near parameters
+ * const schema = require('schm')
+ * const translate = require('schm-translate')
+ * const { near } = require('schm-mongo')
+ *
+ * const nearSchema = schema(
+ *   near('location'),
+ *   translate({ near: 'lnglat', min_distance: 'min', max_distance: 'max' })
+ * )
+ *
+ * const parsed = nearSchema.parse({
+ *   lnglat: '-20.4321,44.4321',
+ *   min: 1000,
+ *   max: 2000,
+ * })
+ * // {
+ * //   location: {
+ * //     $near: {
+ * //       $geometry: {
+ * //         type: 'Point',
+ * //         coordinates: [-20.4321, 44.4321],
+ * //       },
+ * //       $minDistance: 1000,
+ * //       $maxDistance: 2000,
+ * //     },
+ * //   }
+ * // }
  */
 const near = (param: string): SchemaGroup => (previous: Schema) => {
   const params = {
@@ -25,7 +76,7 @@ const near = (param: string): SchemaGroup => (previous: Schema) => {
         near: coordinates,
         min_distance: $minDistance,
         max_distance: $maxDistance,
-        parsed,
+        ...parsed
       } = previous.parse.call(this, values)
       if (coordinates) {
         return {

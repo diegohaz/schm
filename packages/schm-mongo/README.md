@@ -16,7 +16,7 @@ const { query, fields, page, near } = require('schm-mongo')
 
 const placeSchema = schema({
   name: String,
-  location: [Number]
+  location: [Number],
 })
 
 const querySchema = schema(
@@ -238,11 +238,68 @@ Returns **SchemaGroup**
 
 ### near
 
-Cacete.
+Creates a [geospatial query](https://docs.mongodb.com/manual/geospatial-queries/) based on values.
 
 **Parameters**
 
 -   `param` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+**Examples**
+
+```javascript
+const schema = require('schm')
+const { near } = require('schm-mongo')
+
+const nearSchema = schema(near('location'))
+
+const parsed = nearSchema.parse({
+  near: '-20.4321,44.4321',
+  min_distance: 1000,
+  max_distance: 2000,
+})
+// {
+//   location: {
+//     $near: {
+//       $geometry: {
+//         type: 'Point',
+//         coordinates: [-20.4321, 44.4321],
+//       },
+//       $minDistance: 1000,
+//       $maxDistance: 2000,
+//     },
+//   }
+// }
+```
+
+```javascript
+// renaming near parameters
+const schema = require('schm')
+const translate = require('schm-translate')
+const { near } = require('schm-mongo')
+
+const nearSchema = schema(
+  near('location'),
+  translate({ near: 'lnglat', min_distance: 'min', max_distance: 'max' })
+)
+
+const parsed = nearSchema.parse({
+  lnglat: '-20.4321,44.4321',
+  min: 1000,
+  max: 2000,
+})
+// {
+//   location: {
+//     $near: {
+//       $geometry: {
+//         type: 'Point',
+//         coordinates: [-20.4321, 44.4321],
+//       },
+//       $minDistance: 1000,
+//       $maxDistance: 2000,
+//     },
+//   }
+// }
+```
 
 Returns **SchemaGroup** 
 

@@ -1,3 +1,5 @@
+import type { Schema, SchemaGroup } from 'schm'
+
 // @flow
 
 /**
@@ -48,7 +50,7 @@
  * // }
  * db.collection.find({}, parsed.fields)
  */
-const fields = () => (previous: any) =>
+const fields = (): SchemaGroup => (previous: Schema) =>
   previous.merge({
     params: {
       fields: {

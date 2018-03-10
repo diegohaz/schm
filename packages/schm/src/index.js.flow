@@ -45,7 +45,7 @@ export type Schema = {
   validators: { [string]: Validator },
   parse: (values: Object) => Object,
   validate: (values: Object) => Promise<ValidationError[]>,
-  merge: (...schemas: Schema[]) => Schema,
+  merge: (...schemas: Object[]) => Schema,
 }
 
 /** */

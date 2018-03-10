@@ -1,4 +1,5 @@
 // @flow
+import type { Schema, SchemaGroup } from 'schm'
 import parsers from './parsers'
 import flatten from './flatten'
 import parsePaths from './parsePaths'
@@ -50,7 +51,7 @@ import type { PathsMap } from '.'
  * // }
  * db.collection.find(parsed)
  */
-const query = (pathsMap: PathsMap = {}) => (previous: any) =>
+const query = (pathsMap: PathsMap = {}): SchemaGroup => (previous: Schema) =>
   previous.merge({
     parsers,
     parse(values) {

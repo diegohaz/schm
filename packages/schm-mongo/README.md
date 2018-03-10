@@ -71,6 +71,8 @@ Model.find(query, fields, page)
 
 -   [query](#query)
 -   [fields](#fields)
+-   [page](#page)
+-   [near](#near)
 -   [Types](#types)
     -   [PathsMap](#pathsmap)
 
@@ -130,6 +132,8 @@ const parsed = querySchema.parse({
 db.collection.find(parsed)
 ```
 
+Returns **SchemaGroup** 
+
 ### fields
 
 Defines a `fields` parameter and parses it into [MongoDB projection](https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/).
@@ -187,16 +191,9 @@ const parsed = fieldsSchema.parse({ select: ['-_id', 'name'] })
 db.collection.find({}, parsed.fields)
 ```
 
-### Types
+Returns **SchemaGroup** 
 
-
-
-
-#### PathsMap
-
-Type: {}
-
-### 
+### page
 
 Pagination: parses `page`, `limit` and `sort` parameters into properties to be used within [MongoDB cursor methods](https://docs.mongodb.com/manual/reference/method/js-cursor).
 
@@ -236,6 +233,27 @@ const parsed = pageSchema.parse({ p: 3, size: 30, sort_by: 'createdAt' })
 //   }
 // }
 ```
+
+Returns **SchemaGroup** 
+
+### near
+
+Cacete.
+
+**Parameters**
+
+-   `param` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **SchemaGroup** 
+
+### Types
+
+
+
+
+#### PathsMap
+
+Type: {}
 
 ## License
 

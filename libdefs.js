@@ -1,8 +1,5 @@
 // @flow
 
-declare module 'schm' {
-  declare module.exports: any
-}
 declare module 'lodash/get' {
   declare module.exports: any
 }

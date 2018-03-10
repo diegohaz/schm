@@ -31,6 +31,9 @@ export const defaultSchema = (params?: Object = {}): Schema => ({
  * A simple group of parameters. It's used internally when you pass literal
  * objects to [`schema`](#schema).
  * @example
+ * const schema = require('schm')
+ * const { group } = schema
+ *
  * const userSchema = schema(
  *   group({
  *     id: String,
@@ -48,6 +51,8 @@ export const group = (params?: Object = {}): SchemaGroup => (
 /**
  * Creates a schema by composing groups of parameters.
  * @example
+ * const schema = require('schm')
+ *
  * const userSchema = schema({
  *   id: String,
  *   name: String,

@@ -41,6 +41,7 @@ The way you declare the schema object is very similar to [mongoose Schemas](http
 | [`schm-express`](packages/schm-express) | [![NPM version](https://img.shields.io/npm/v/schm-express.svg?style=flat-square)](https://npmjs.org/package/schm-express) | Express middlewares to handle querystring and response body |
 | [`schm-koa`](packages/schm-koa) | [![NPM version](https://img.shields.io/npm/v/schm-koa.svg?style=flat-square)](https://npmjs.org/package/schm-koa) | Koa middlewares to handle querystring and response body |
 | [`schm-methods`](packages/schm-methods) | [![NPM version](https://img.shields.io/npm/v/schm-methods.svg?style=flat-square)](https://npmjs.org/package/schm-methods) | Adds methods to parsed schema objects |
+| [`schm-mongo`](packages/schm-mongo) | [![NPM version](https://img.shields.io/npm/v/schm-mongo.svg?style=flat-square)](https://npmjs.org/package/schm-mongo) | Parses values to MongoDB queries |
 | [`schm-translate`](packages/schm-translate) | [![NPM version](https://img.shields.io/npm/v/schm-translate.svg?style=flat-square)](https://npmjs.org/package/schm-translate) | Translates values keys to schema keys |
 
 ## Contributing

@@ -4,5 +4,8 @@
 .*/node_modules/.*
 <PROJECT_ROOT>/libdefs.js
 
+[options]
+module.name_mapper='^schm$' -> '<PROJECT_ROOT>/packages/schm/src'
+
 [libs]
 ./libdefs.js

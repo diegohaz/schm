@@ -29,6 +29,7 @@ export const query = (params: Object) => (
   res: Object,
   next: Function,
 ) => {
+  // $FlowFixMe
   const querySchema = schema(params)
   const values = convertEmptyToTrue(req.query)
   querySchema
@@ -65,6 +66,7 @@ export const body = (params: Object) => (
   res: Object,
   next: Function,
 ) => {
+  // $FlowFixMe
   const bodySchema = schema(params)
   bodySchema
     .validate(req.body)

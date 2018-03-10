@@ -5,6 +5,8 @@ import mapValues from './mapValues'
 /**
  * Parses a schema based on given values.
  * @example
+ * const { parse } = require('schm')
+ *
  * parse(
  *   { foo: 1, bar: '1' },
  *   { foo: String, bar: Number },

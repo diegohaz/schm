@@ -31,6 +31,7 @@ export const query = (params: Object) => async (
   ctx: Object,
   next: Function,
 ) => {
+  // $FlowFixMe
   const querySchema = schema(params)
   const values = qs.parse(convertEmptyToTrue(ctx.query))
   try {
@@ -61,6 +62,7 @@ export const query = (params: Object) => async (
  * })
  */
 export const body = (params: Object) => async (ctx: Object, next: Function) => {
+  // $FlowFixMe
   const bodySchema = schema(params)
   try {
     ctx.state.body = await bodySchema.validate(ctx.request.body)

@@ -1,6 +1,6 @@
 {
   "name": "schm-mongo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Composable, immutable, parseable and validatable (yeah, many *ables) schemas for Node/JavaScript",
   "license": "MIT",
   "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm-mongo",
@@ -52,7 +52,7 @@
     "jest-cli": "^22.4.2",
     "opn-cli": "^3.1.0",
     "rimraf": "^2.6.1",
-    "schm": "^0.3.5"
+    "schm": "^0.3.6"
   },
   "peerDependencies": {
     "schm": "^0.3.4"

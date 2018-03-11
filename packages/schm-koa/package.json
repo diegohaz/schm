@@ -1,6 +1,6 @@
 {
   "name": "schm-koa",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Composable, immutable, parseable and validatable (yeah, many *ables) schemas for Node/JavaScript",
   "license": "MIT",
   "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm-koa",
@@ -37,7 +37,7 @@
   ],
   "dependencies": {
     "qs": "^6.5.1",
-    "schm": "^0.3.5"
+    "schm": "^0.3.6"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

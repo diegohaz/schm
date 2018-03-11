@@ -70,7 +70,7 @@ const schema = (...groups: (Object | Schema | SchemaGroup)[]): Schema =>
     if (typeof currentGroup === 'function') {
       return currentGroup(finalSchema)
     } else if (isSchema(currentGroup)) {
-      return currentGroup
+      return finalSchema.merge(currentGroup)
     }
     return group(currentGroup)(finalSchema)
   }, defaultSchema())

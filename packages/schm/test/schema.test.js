@@ -144,6 +144,16 @@ describe('composition', () => {
       age: 27,
     })
   })
+
+  it('composes multiple schema', () => {
+    const schema1 = schema({ age: Number })
+    const schema2 = schema({ name: String })
+    const schema3 = schema(schema1, schema2)
+    expect(schema3.parse({ name: 'Haz', age: '27' })).toEqual({
+      name: 'Haz',
+      age: 27,
+    })
+  })
 })
 
 test('group', () => {

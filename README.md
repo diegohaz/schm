@@ -1,4 +1,5 @@
-# schm
+<img src="logo/logo.png" height="70" />
+<br /><br />
 
 [![Build Status](https://img.shields.io/travis/diegohaz/schm/master.svg?style=flat-square)](https://travis-ci.org/diegohaz/schm) [![Coverage Status](https://img.shields.io/codecov/c/github/diegohaz/schm/master.svg?style=flat-square)](https://codecov.io/gh/diegohaz/schm/branch/master)
 

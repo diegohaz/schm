@@ -8,7 +8,7 @@
     "lint": "eslint packages/*/{src,test}",
     "docs": "lerna exec -- npm run docs",
     "flow": "flow",
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap && lerna exec -- npm run build"
   },
   "jest": {
     "testEnvironment": "node",

@@ -1,7 +1,6 @@
 // @flow
 import type { Schema, SchemaGroup } from 'schm'
 import parsers from './parsers'
-import flatten from './flatten'
 import parsePaths from './parsePaths'
 import removeUndefined from './removeUndefined'
 import type { PathsMap } from '.'
@@ -56,7 +55,7 @@ const query = (pathsMap: PathsMap = {}): SchemaGroup => (previous: Schema) =>
     parsers,
     parse(values) {
       const parsed = previous.parse.call(this, values)
-      return parsePaths(removeUndefined(flatten(parsed)), pathsMap)
+      return parsePaths(removeUndefined(parsed), pathsMap)
     },
   })
 

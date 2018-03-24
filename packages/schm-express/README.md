@@ -24,7 +24,7 @@ app.get('/', query({ foo: { type: Boolean, required: true } }), (req, res) => {
   console.log(req.query) // { foo: true }
 })
 
-// requrest POST / send { foo: 1 }
+// request POST / send { foo: 1 }
 app.post('/', body({ foo: Boolean }), (req, res) => {
   console.log(req.body) // { foo: true }
 })

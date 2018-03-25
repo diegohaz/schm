@@ -34,7 +34,7 @@ The way you declare the schema object is very similar to [mongoose Schemas](http
 
 ## Packages
 
-`schm` repository is a [monorepo](https://danluu.com/monorepo/) managed by [lerna](https://github.com/lerna/lerna). Click on package name to see specific docs.
+`schm` repository is a [monorepo](https://danluu.com/monorepo/) managed by [lerna](https://github.com/lerna/lerna). Click on package name to see specific **documentation**.
 
 | Package | Version | Description |
 |---|---|---|

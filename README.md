@@ -2,7 +2,9 @@
 
 [![Build Status](https://img.shields.io/travis/diegohaz/schm/master.svg?style=flat-square)](https://travis-ci.org/diegohaz/schm) [![Coverage Status](https://img.shields.io/codecov/c/github/diegohaz/schm/master.svg?style=flat-square)](https://codecov.io/gh/diegohaz/schm/branch/master)
 
-[**Read the introductory article**](https://medium.freecodecamp.org/how-to-write-powerful-schemas-in-javascript-490da6233d37)
+- [**Introductory article**](https://medium.freecodecamp.org/how-to-write-powerful-schemas-in-javascript-490da6233d37)
+- [**Main documentation**](packages/schm)
+- [**Examples**](https://runkit.com/diegohaz/schm)
 
 **schm** is a library for creating immutable, composable, parseable and validatable (yeah, many *ables) schemas in Node. That's highly inspired by [functional programming](https://en.wikipedia.org/wiki/Functional_programming) paradigm.
 

@@ -1,7 +1,7 @@
 {
   "name": "schm-translate",
   "version": "0.1.5",
-  "description": "Composable, immutable, parseable and validatable (yeah, many *ables) schemas for Node/JavaScript",
+  "description": "Translates values keys into schema keys",
   "license": "MIT",
   "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm-translate",
   "main": "dist/index.js",

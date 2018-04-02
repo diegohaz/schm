@@ -1,15 +1,15 @@
 // @flow
-import schema from 'schm'
-import qs from 'qs'
+import schema from "schm";
+import qs from "qs";
 
 const convertEmptyToTrue = (object: Object): Object =>
   Object.keys(object).reduce(
     (finalObject, key) => ({
       ...finalObject,
-      [key]: object[key] === '' ? true : object[key],
+      [key]: object[key] === "" ? true : object[key]
     }),
-    {},
-  )
+    {}
+  );
 
 /**
  * Returns a koa middleware that validates and parses querystring based
@@ -29,19 +29,19 @@ const convertEmptyToTrue = (object: Object): Object =>
  */
 export const query = (params: Object) => async (
   ctx: Object,
-  next: Function,
+  next: Function
 ) => {
   // $FlowFixMe
-  const querySchema = schema(params)
-  const values = qs.parse(convertEmptyToTrue(ctx.query))
+  const querySchema = schema(params);
+  const values = qs.parse(convertEmptyToTrue(ctx.query));
   try {
-    ctx.state.query = await querySchema.validate(values)
-    next()
+    ctx.state.query = await querySchema.validate(values);
+    next();
   } catch (e) {
-    ctx.state.schmError = true
-    throw e
+    ctx.state.schmError = true;
+    throw e;
   }
-}
+};
 
 /**
  * Returns a koa middleware that validates and parses request body based
@@ -63,15 +63,15 @@ export const query = (params: Object) => async (
  */
 export const body = (params: Object) => async (ctx: Object, next: Function) => {
   // $FlowFixMe
-  const bodySchema = schema(params)
+  const bodySchema = schema(params);
   try {
-    ctx.state.body = await bodySchema.validate(ctx.request.body)
-    next()
+    ctx.state.body = await bodySchema.validate(ctx.request.body);
+    next();
   } catch (e) {
-    ctx.state.schmError = true
-    throw e
+    ctx.state.schmError = true;
+    throw e;
   }
-}
+};
 
 /**
  * Handles errors from schm-koa.
@@ -93,11 +93,11 @@ export const body = (params: Object) => async (ctx: Object, next: Function) => {
  */
 export const errorHandler = () => async (ctx: Object, next: Function) => {
   try {
-    await next()
+    await next();
   } catch (e) {
     if (ctx.state.schmError) {
-      ctx.body = e
-      ctx.status = 400
+      ctx.body = e;
+      ctx.status = 400;
     }
   }
-}
+};

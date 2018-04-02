@@ -1,89 +1,89 @@
 // @flow
-import type { Parser } from '.'
-import { toArray, isArray, isSchema } from './utils'
+import type { Parser } from ".";
+import { toArray, isArray, isSchema } from "./utils";
 
 export const type: Parser = (value, option) => {
   if (isArray(option)) {
-    return toArray(value).map(val => type(val, option[0]))
+    return toArray(value).map(val => type(val, option[0]));
   }
   if (isSchema(option)) {
-    return option.parse(value)
+    return option.parse(value);
   }
   if (value == null) {
-    return value
+    return value;
   }
   switch (option.name) {
-    case 'RegExp':
-      return new RegExp(value, 'i')
-    case 'Date':
-      return new Date(/^\d{5,}$/.test(value) ? Number(value) : value)
-    case 'Boolean':
-      return !(value === 'false' || value === '0' || !value)
-    case 'Number':
-      return Number(value)
-    case 'Object':
-      return Object(value)
+    case "RegExp":
+      return new RegExp(value, "i");
+    case "Date":
+      return new Date(/^\d{5,}$/.test(value) ? Number(value) : value);
+    case "Boolean":
+      return !(value === "false" || value === "0" || !value);
+    case "Number":
+      return Number(value);
+    case "Object":
+      return Object(value);
     default:
-      return String(value)
+      return String(value);
   }
-}
+};
 
 export const set: Parser = (value, option) => {
-  if (typeof option === 'function') {
-    return option(value)
+  if (typeof option === "function") {
+    return option(value);
   }
-  throw new Error('[schm] `set` option must be a function')
-}
+  throw new Error("[schm] `set` option must be a function");
+};
 
 export const get: Parser = (value, option) => {
-  if (typeof option === 'function') {
-    return option(value)
+  if (typeof option === "function") {
+    return option(value);
   }
-  throw new Error('[schm] `get` option must be a function')
-}
+  throw new Error("[schm] `get` option must be a function");
+};
 
 export const lowercase: Parser = (value, option) => {
   if (option && value) {
-    if (typeof value.toLowerCase === 'function') {
-      return value.toLowerCase()
+    if (typeof value.toLowerCase === "function") {
+      return value.toLowerCase();
     }
     throw new Error(
-      `[schm] value must be a string to be lowercased. Instead, received ${typeof value}`,
-    )
+      `[schm] value must be a string to be lowercased. Instead, received ${typeof value}`
+    );
   }
-  return value
-}
+  return value;
+};
 
 export const uppercase: Parser = (value, option) => {
   if (option && value) {
-    if (typeof value.toUpperCase === 'function') {
-      return value.toUpperCase()
+    if (typeof value.toUpperCase === "function") {
+      return value.toUpperCase();
     }
     throw new Error(
-      `[schm] value must be a string to be uppercased. Instead, received ${typeof value}`,
-    )
+      `[schm] value must be a string to be uppercased. Instead, received ${typeof value}`
+    );
   }
-  return value
-}
+  return value;
+};
 
 export const trim: Parser = (value, option) => {
   if (option && value) {
-    if (typeof value.trim === 'function') {
-      return value.trim()
+    if (typeof value.trim === "function") {
+      return value.trim();
     }
     throw new Error(
-      `[schm] value must be a string to be trimmed. Instead, received ${typeof value}`,
-    )
+      `[schm] value must be a string to be trimmed. Instead, received ${typeof value}`
+    );
   }
-  return value
-}
+  return value;
+};
 
 export const defaultParser: Parser = (value, option) => {
-  if (value == null || value === '' || Number.isNaN(value)) {
-    return typeof option === 'function' ? option() : option
+  if (value == null || value === "" || Number.isNaN(value)) {
+    return typeof option === "function" ? option() : option;
   }
-  return value
-}
+  return value;
+};
 
 export default {
   type,
@@ -92,5 +92,5 @@ export default {
   lowercase,
   uppercase,
   trim,
-  default: defaultParser,
-}
+  default: defaultParser
+};

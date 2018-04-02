@@ -1,9 +1,9 @@
 // @flow
-import type { Schema, SchemaGroup } from 'schm'
-import parsers from './parsers'
-import parsePaths from './parsePaths'
-import removeUndefined from './removeUndefined'
-import type { PathsMap } from '.'
+import type { Schema, SchemaGroup } from "schm";
+import parsers from "./parsers";
+import parsePaths from "./parsePaths";
+import removeUndefined from "./removeUndefined";
+import type { PathsMap } from ".";
 
 /**
  * Applies `operator` parser to the schema. Also translates fields to paths.
@@ -54,9 +54,9 @@ const query = (pathsMap: PathsMap = {}): SchemaGroup => (previous: Schema) =>
   previous.merge({
     parsers,
     parse(values) {
-      const parsed = previous.parse.call(this, values)
-      return parsePaths(removeUndefined(parsed), pathsMap)
-    },
-  })
+      const parsed = previous.parse.call(this, values);
+      return parsePaths(removeUndefined(parsed), pathsMap);
+    }
+  });
 
-export default query
+export default query;

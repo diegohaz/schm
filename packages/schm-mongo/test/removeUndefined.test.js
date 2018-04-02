@@ -1,9 +1,9 @@
-import removeUndefined from '../src/removeUndefined'
+import removeUndefined from "../src/removeUndefined";
 
-test('removeUndefined', () => {
+test("removeUndefined", () => {
   const object = {
-    foo: 'foo',
-    bar: undefined,
-  }
-  expect(removeUndefined(object)).toEqual({ foo: 'foo' })
-})
+    foo: "foo",
+    bar: undefined
+  };
+  expect(removeUndefined(object)).toEqual({ foo: "foo" });
+});

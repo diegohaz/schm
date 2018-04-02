@@ -1,6 +1,6 @@
 // @flow
-import createSchema from './schema'
-import mapValues from './mapValues'
+import createSchema from "./schema";
+import mapValues from "./mapValues";
 
 /**
  * Parses a schema based on given values.
@@ -17,20 +17,20 @@ import mapValues from './mapValues'
  * schema({ foo: String, bar: Number }).parse({ foo: 1, bar: '1' })
  */
 const parse = (values?: Object = {}, params: Object): Object => {
-  const schema = createSchema(params)
+  const schema = createSchema(params);
   const transformValue = (value, options, paramName, paramPath) =>
     Object.keys(options).reduce((finalValue, optionName) => {
-      const option = options[optionName]
-      const parser = schema.parsers[optionName]
+      const option = options[optionName];
+      const parser = schema.parsers[optionName];
 
-      if (typeof parser === 'function') {
-        return parser(finalValue, option, paramPath, options, values, schema)
+      if (typeof parser === "function") {
+        return parser(finalValue, option, paramPath, options, values, schema);
       } else if (parser) {
-        throw new Error(`[schm] ${paramName} parser must be a function`)
+        throw new Error(`[schm] ${paramName} parser must be a function`);
       }
-      return finalValue
-    }, value)
-  return mapValues(values, schema.params, transformValue)
-}
+      return finalValue;
+    }, value);
+  return mapValues(values, schema.params, transformValue);
+};
 
-export default parse
+export default parse;

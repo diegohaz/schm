@@ -1,14 +1,14 @@
 // @flow
-import schema from 'schm'
+import schema from "schm";
 
 const convertEmptyToTrue = (object: Object): Object =>
   Object.keys(object).reduce(
     (finalObject, key) => ({
       ...finalObject,
-      [key]: object[key] === '' ? true : object[key],
+      [key]: object[key] === "" ? true : object[key]
     }),
-    {},
-  )
+    {}
+  );
 
 /**
  * Returns an express middleware that validates and parses querystring based
@@ -27,22 +27,22 @@ const convertEmptyToTrue = (object: Object): Object =>
 export const query = (params: Object) => (
   req: Object,
   res: Object,
-  next: Function,
+  next: Function
 ) => {
   // $FlowFixMe
-  const querySchema = schema(params)
-  const values = convertEmptyToTrue(req.query)
+  const querySchema = schema(params);
+  const values = convertEmptyToTrue(req.query);
   querySchema
     .validate(values)
     .then(parsed => {
-      req.query = parsed
-      next()
+      req.query = parsed;
+      next();
     })
     .catch(errors => {
-      req.schmError = true
-      next(errors)
-    })
-}
+      req.schmError = true;
+      next(errors);
+    });
+};
 
 /**
  * Returns an express middleware that validates and parses request body based
@@ -64,21 +64,21 @@ export const query = (params: Object) => (
 export const body = (params: Object) => (
   req: Object,
   res: Object,
-  next: Function,
+  next: Function
 ) => {
   // $FlowFixMe
-  const bodySchema = schema(params)
+  const bodySchema = schema(params);
   bodySchema
     .validate(req.body)
     .then(parsed => {
-      req.body = parsed
-      next()
+      req.body = parsed;
+      next();
     })
     .catch(errors => {
-      req.schmError = true
-      next(errors)
-    })
-}
+      req.schmError = true;
+      next(errors);
+    });
+};
 
 /**
  * Handles errors from schm-express.
@@ -101,10 +101,10 @@ export const errorHandler = () => (
   err: any,
   req: Object,
   res: Object,
-  next: Function,
+  next: Function
 ) => {
   if (req.schmError) {
-    return res.status(400).json(err)
+    return res.status(400).json(err);
   }
-  return next(err)
-}
+  return next(err);
+};

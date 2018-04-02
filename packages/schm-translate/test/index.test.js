@@ -1,28 +1,28 @@
-import schema from '../../schm/src'
-import translate from '../src'
+import schema from "../../schm/src";
+import translate from "../src";
 
-test('translate', () => {
+test("translate", () => {
   const schm = schema(
     {
-      name: String,
+      name: String
     },
     translate({
-      name: 'foo.bar',
-    }),
-  )
+      name: "foo.bar"
+    })
+  );
 
-  expect(schm.parse({ foo: { bar: 'John' } })).toEqual({ name: 'John' })
-})
+  expect(schm.parse({ foo: { bar: "John" } })).toEqual({ name: "John" });
+});
 
-test('parse without values', () => {
+test("parse without values", () => {
   const schm = schema(
     {
-      name: String,
+      name: String
     },
     translate({
-      name: 'foo.bar',
-    }),
-  )
+      name: "foo.bar"
+    })
+  );
 
-  expect(schm.parse()).toEqual({ name: undefined })
-})
+  expect(schm.parse()).toEqual({ name: undefined });
+});

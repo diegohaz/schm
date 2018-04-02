@@ -1,46 +1,46 @@
-import schema from '../../schm/src'
-import computed from '../src'
+import schema from "../../schm/src";
+import computed from "../src";
 
-describe('computed', () => {
-  it('works', () => {
+describe("computed", () => {
+  it("works", () => {
     const schm = schema(
       {
         firstName: String,
-        lastName: String,
+        lastName: String
       },
       computed({
-        fullName: values => `${values.firstName} ${values.lastName}`,
-      }),
-    )
+        fullName: values => `${values.firstName} ${values.lastName}`
+      })
+    );
 
     expect(
       schm.parse({
-        firstName: 'Diego',
-        lastName: 'Haz',
-      }),
+        firstName: "Diego",
+        lastName: "Haz"
+      })
     ).toEqual({
-      firstName: 'Diego',
-      lastName: 'Haz',
-      fullName: 'Diego Haz',
-    })
-  })
+      firstName: "Diego",
+      lastName: "Haz",
+      fullName: "Diego Haz"
+    });
+  });
 
-  it('throws', () => {
+  it("throws", () => {
     const schm = schema(
       {
         firstName: String,
-        lastName: String,
+        lastName: String
       },
       computed({
-        fullName: 'foo',
-      }),
-    )
+        fullName: "foo"
+      })
+    );
 
     expect(() =>
       schm.parse({
-        firstName: 'Diego',
-        lastName: 'Haz',
-      }),
-    ).toThrow()
-  })
-})
+        firstName: "Diego",
+        lastName: "Haz"
+      })
+    ).toThrow();
+  });
+});

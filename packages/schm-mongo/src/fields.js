@@ -1,5 +1,5 @@
 // @flow
-import type { Schema, SchemaGroup } from 'schm'
+import type { Schema, SchemaGroup } from "schm";
 
 /**
  * Defines a `fields` parameter and parses it into [MongoDB projection](https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/).
@@ -55,20 +55,20 @@ const fields = (): SchemaGroup => (previous: Schema) =>
       fields: {
         type: String,
         set: value => {
-          if (!value) return value
+          if (!value) return value;
           return value
-            .split(',')
+            .split(",")
             .map(v => v.trim())
             .map(v => ({
-              [v.replace(/^[+-]/, '')]: v.indexOf('-') === 0 ? 0 : 1,
+              [v.replace(/^[+-]/, "")]: v.indexOf("-") === 0 ? 0 : 1
             }))
             .reduce((finalObject, currentObject) => ({
               ...finalObject,
-              ...currentObject,
-            }))
-        },
-      },
-    },
-  })
+              ...currentObject
+            }));
+        }
+      }
+    }
+  });
 
-export default fields
+export default fields;

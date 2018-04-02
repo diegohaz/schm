@@ -2,13 +2,13 @@
 
 const removeUndefined = (object: Object): Object =>
   Object.keys(object).reduce((finalObject, key) => {
-    if (typeof object[key] === 'undefined') {
-      return finalObject
+    if (typeof object[key] === "undefined") {
+      return finalObject;
     }
     return {
       ...finalObject,
-      [key]: object[key],
-    }
-  }, {})
+      [key]: object[key]
+    };
+  }, {});
 
-export default removeUndefined
+export default removeUndefined;

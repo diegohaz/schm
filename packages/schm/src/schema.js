@@ -1,31 +1,31 @@
 // @flow
-import merge from 'lodash/merge'
-import type { Schema, SchemaGroup } from '.'
-import { isSchema } from './utils'
-import parsers from './parsers'
-import validators from './validators'
-import parse from './parse'
-import validate from './validate'
-import parseParams from './parseParams'
+import merge from "lodash/merge";
+import type { Schema, SchemaGroup } from ".";
+import { isSchema } from "./utils";
+import parsers from "./parsers";
+import validators from "./validators";
+import parse from "./parse";
+import validate from "./validate";
+import parseParams from "./parseParams";
 
 export const defaultSchema = (params?: Object = {}): Schema => ({
   parsers,
   validators,
   parse(values) {
-    return parse(values, this)
+    return parse(values, this);
   },
   validate(values, paramPathPrefix) {
-    return validate(values, this, paramPathPrefix)
+    return validate(values, this, paramPathPrefix);
   },
   merge(...schemas) {
-    const merged = merge({}, this, ...schemas)
+    const merged = merge({}, this, ...schemas);
     return {
       ...merged,
-      params: parseParams(merged.params),
-    }
+      params: parseParams(merged.params)
+    };
   },
-  params: parseParams(params),
-})
+  params: parseParams(params)
+});
 
 /**
  * A simple group of parameters. It's used internally when you pass literal
@@ -45,8 +45,8 @@ export const defaultSchema = (params?: Object = {}): Schema => ({
  * )
  */
 export const group = (params?: Object = {}): SchemaGroup => (
-  previous: Schema,
-): Schema => previous.merge(defaultSchema(params))
+  previous: Schema
+): Schema => previous.merge(defaultSchema(params));
 
 /**
  * Creates a schema by composing groups of parameters.
@@ -67,12 +67,12 @@ export const group = (params?: Object = {}): SchemaGroup => (
  */
 const schema = (...groups: (Object | Schema | SchemaGroup)[]): Schema =>
   groups.reduce((finalSchema, currentGroup) => {
-    if (typeof currentGroup === 'function') {
-      return currentGroup(finalSchema)
+    if (typeof currentGroup === "function") {
+      return currentGroup(finalSchema);
     } else if (isSchema(currentGroup)) {
-      return finalSchema.merge(currentGroup)
+      return finalSchema.merge(currentGroup);
     }
-    return group(currentGroup)(finalSchema)
-  }, defaultSchema())
+    return group(currentGroup)(finalSchema);
+  }, defaultSchema());
 
-export default schema
+export default schema;

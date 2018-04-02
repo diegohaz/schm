@@ -1,7 +1,7 @@
 // @flow
-import type { Schema, SchemaGroup } from 'schm'
-import merge from 'lodash/merge'
-import removeUndefined from './removeUndefined'
+import type { Schema, SchemaGroup } from "schm";
+import merge from "lodash/merge";
+import removeUndefined from "./removeUndefined";
 
 /**
  * Pagination: parses `page`, `limit` and `sort` parameters into properties to be used within [MongoDB cursor methods](https://docs.mongodb.com/manual/reference/method/js-cursor).
@@ -44,38 +44,38 @@ const page = (): SchemaGroup => (previous: Schema) => {
     sort: {
       type: String,
       set: value => {
-        if (!value) return value
+        if (!value) return value;
         return value
-          .split(',')
+          .split(",")
           .map(v => v.trim())
           .map(v => ({
-            [v.replace(/^[+-]/, '')]: v.indexOf('-') === 0 ? -1 : 1,
+            [v.replace(/^[+-]/, "")]: v.indexOf("-") === 0 ? -1 : 1
           }))
           .reduce((finalObject, currentObject) => ({
             ...finalObject,
-            ...currentObject,
-          }))
-      },
-    },
-  }
+            ...currentObject
+          }));
+      }
+    }
+  };
 
   return previous.merge({
     params: merge({}, params, previous.params),
     parse(values) {
       const { page: pageNumber, limit, sort, ...parsed } = previous.parse.call(
         this,
-        values,
-      )
-      const skip = (pageNumber - 1) * limit
+        values
+      );
+      const skip = (pageNumber - 1) * limit;
       return {
         ...parsed,
         page: removeUndefined({
           skip,
           limit,
-          sort,
-        }),
-      }
-    },
-  })
-}
-export default page
+          sort
+        })
+      };
+    }
+  });
+};
+export default page;

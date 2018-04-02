@@ -8,7 +8,7 @@
 
 <br />
 
-**schm** is a library for creating immutable, composable, parseable and validatable (yeah, many *ables) schemas in Node. That's highly inspired by [functional programming](https://en.wikipedia.org/wiki/Functional_programming) paradigm.
+**schm** is a library for creating immutable, composable, parseable and validatable (yeah, many *ables) schemas in JavaScript and Node.js. That's highly inspired by [functional programming](https://en.wikipedia.org/wiki/Functional_programming) paradigm.
 
 Play with `schm` on [RunKit](https://runkit.com/diegohaz/schm) (click on *Clone and edit this document* at the bottom and skip login if you want).
 

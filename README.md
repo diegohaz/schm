@@ -6,7 +6,14 @@
 - [**Main documentation**](packages/schm#readme)
 - [**Examples**](https://runkit.com/diegohaz/schm)
 
-<br />
+<br>
+<hr>
+<p align="center">
+If you find this useful, please don't forget to star ⭐️ the repo, as this will help to promote the project.<br>
+Follow me on <a href="https://twitter.com/diegohaz">Twitter</a> and <a href="https://github.com/diegohaz">GitHub</a> to keep updated about this project and <a href="https://github.com/diegohaz?tab=repositories">others</a>.
+</p>
+<hr>
+<br><br>
 
 **schm** is a library for creating immutable, composable, parseable and validatable (yeah, many *ables) schemas in JavaScript and Node.js. That's highly inspired by [functional programming](https://en.wikipedia.org/wiki/Functional_programming) paradigm.
 

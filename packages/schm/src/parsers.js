@@ -23,10 +23,8 @@ export const type: Parser = (value, option) => {
       return Number(value);
     case "Object":
       return Object(value);
-    case "String":
-      return String(value);
     default:
-      return value;
+      return String(value);
   }
 };
 

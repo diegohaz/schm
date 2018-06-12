@@ -68,12 +68,6 @@ describe("type", () => {
     expect(type([1, /ab/], [String])).toEqual(["1", "/ab/"]);
   });
 
-  test("Array", () => {
-    expect(type([], Array)).toEqual([]);
-    expect(type([1], Array)).toEqual([1]);
-    expect(type(["1", {}], Array)).toEqual(["1", {}]);
-  });
-
   test("Schema", () => {
     const schm = schema({ foo: String });
     const value = { foo: 1 };

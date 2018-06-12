@@ -8,7 +8,7 @@
     "lint": "eslint packages/*/{src,test}",
     "docs": "lerna exec -- npm run docs",
     "flow": "flow",
-    "postinstall": "lerna bootstrap && lerna exec -- npm run build"
+    "postinstall": "lerna exec -- npm run build"
   },
   "jest": {
     "testEnvironment": "node",
@@ -17,24 +17,27 @@
       "/dist/"
     ]
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.1",
-    "babel-jest": "^22.1.0",
-    "babel-preset-env": "^1.1.8",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "^23.0.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-stage-1": "^6.24.1",
-    "eslint": "^4.15.0",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-flowtype": "^2.41.0",
-    "eslint-plugin-flowtype-errors": "^3.0.0",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-flowtype": "^2.49.3",
+    "eslint-plugin-flowtype-errors": "^3.6.0",
+    "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-prettier": "^2.6.0",
-    "flow-bin": "^0.67.1",
-    "jest-cli": "^22.1.4",
-    "lerna": "^2.7.0",
+    "flow-bin": "^0.74.0",
+    "jest-cli": "^23.1.0",
+    "lerna": "^2.11.0",
     "opn-cli": "^3.1.0",
-    "prettier": "^1.10.2"
+    "prettier": "^1.13.5"
   }
 }

@@ -71,23 +71,33 @@ userSchema.validate({ name: 'John', age: 17 }) // error
 #### Table of Contents
 
 -   [schema](#schema)
+    -   [Parameters](#parameters)
+    -   [Examples](#examples)
 -   [parse](#parse)
+    -   [Parameters](#parameters-1)
+    -   [Examples](#examples-1)
 -   [validate](#validate)
+    -   [Parameters](#parameters-2)
+    -   [Examples](#examples-2)
 -   [group](#group)
+    -   [Parameters](#parameters-3)
+    -   [Examples](#examples-3)
 -   [Types](#types)
     -   [Schema](#schema-1)
+        -   [Properties](#properties)
     -   [SchemaGroup](#schemagroup)
     -   [ValidationError](#validationerror)
+        -   [Properties](#properties-1)
 
 ### schema
 
 Creates a schema by composing groups of parameters.
 
-**Parameters**
+#### Parameters
 
 -   `groups` **...[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Schema](#schema) \| [SchemaGroup](#schemagroup))>** 
 
-**Examples**
+#### Examples
 
 ```javascript
 const schema = require('schm')
@@ -111,12 +121,12 @@ Returns **[Schema](#schema)**
 
 Parses a schema based on given values.
 
-**Parameters**
+#### Parameters
 
 -   `values` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-**Examples**
+#### Examples
 
 ```javascript
 const { parse } = require('schm')
@@ -137,13 +147,13 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Validates a schema based on given values.
 
-**Parameters**
+#### Parameters
 
 -   `values` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 -   `paramPathPrefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-**Examples**
+#### Examples
 
 ```javascript
 const schema = require('schm')
@@ -185,11 +195,11 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 A simple group of parameters. It's used internally when you pass literal
 objects to [`schema`](#schema).
 
-**Parameters**
+#### Parameters
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
 
-**Examples**
+#### Examples
 
 ```javascript
 const schema = require('schm')
@@ -217,7 +227,7 @@ Returns **[SchemaGroup](#schemagroup)**
 
 Type: {params: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object), parsers: {}, validators: {}, parse: function (values: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object), validate: function (values: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[ValidationError](#validationerror)>>, merge: function (): [Schema](#schema)}
 
-**Properties**
+##### Properties
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 -   `parsers` **{}** 
@@ -234,7 +244,7 @@ Type: function (previous: [Schema](#schema)): [Schema](#schema)
 
 Type: {param: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: any?, validator: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), message: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?}
 
-**Properties**
+##### Properties
 
 -   `param` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `value` **any?** 

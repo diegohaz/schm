@@ -35,19 +35,24 @@ app.use((ctx) => {
 #### Table of Contents
 
 -   [query](#query)
+    -   [Parameters](#parameters)
+    -   [Examples](#examples)
 -   [body](#body)
+    -   [Parameters](#parameters-1)
+    -   [Examples](#examples-1)
 -   [errorHandler](#errorhandler)
+    -   [Examples](#examples-2)
 
 ### query
 
 Returns a koa middleware that validates and parses querystring based
 on a given schema.
 
-**Parameters**
+#### Parameters
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-**Examples**
+#### Examples
 
 ```javascript
 const Koa = require('koa')
@@ -68,11 +73,11 @@ app.use((ctx) => {
 Returns a koa middleware that validates and parses request body based
 on a given schema.
 
-**Parameters**
+#### Parameters
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-**Examples**
+#### Examples
 
 ```javascript
 const Koa = require('koa')
@@ -94,7 +99,7 @@ app.use((ctx) => {
 
 Handles errors from schm-koa.
 
-**Examples**
+#### Examples
 
 ```javascript
 const Koa = require('koa')

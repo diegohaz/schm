@@ -47,12 +47,13 @@ Output:
 #### Table of Contents
 
 -   [translate](#translate)
+    -   [Parameters](#parameters)
 
 ### translate
 
 Translates values keys to schema keys.
 
-**Parameters**
+#### Parameters
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

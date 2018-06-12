@@ -37,12 +37,13 @@ user.codeIn('Java') // false
 #### Table of Contents
 
 -   [methods](#methods)
+    -   [Parameters](#parameters)
 
 ### methods
 
 Adds methods to schm parsed object.
 
-**Parameters**
+#### Parameters
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

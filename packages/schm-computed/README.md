@@ -44,12 +44,13 @@ Output:
 #### Table of Contents
 
 -   [computed](#computed)
+    -   [Parameters](#parameters)
 
 ### computed
 
 Add computed parameters to schema.
 
-**Parameters**
+#### Parameters
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

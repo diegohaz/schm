@@ -70,9 +70,15 @@ Model.find(query, fields, page)
 #### Table of Contents
 
 -   [query](#query)
+    -   [Parameters](#parameters)
+    -   [Examples](#examples)
 -   [fields](#fields)
+    -   [Examples](#examples-1)
 -   [page](#page)
+    -   [Examples](#examples-2)
 -   [near](#near)
+    -   [Parameters](#parameters-1)
+    -   [Examples](#examples-3)
 -   [Types](#types)
     -   [PathsMap](#pathsmap)
 
@@ -80,11 +86,11 @@ Model.find(query, fields, page)
 
 Applies `operator` parser to the schema. Also translates fields to paths.
 
-**Parameters**
+#### Parameters
 
 -   `pathsMap` **[PathsMap](#pathsmap)**  (optional, default `{}`)
 
-**Examples**
+#### Examples
 
 ```javascript
 const schema = require('schm')
@@ -138,7 +144,7 @@ Returns **SchemaGroup**
 
 Defines a `fields` parameter and parses it into [MongoDB projection](https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/).
 
-**Examples**
+#### Examples
 
 ```javascript
 const schema = require('schm')
@@ -197,7 +203,7 @@ Returns **SchemaGroup**
 
 Pagination: parses `page`, `limit` and `sort` parameters into properties to be used within [MongoDB cursor methods](https://docs.mongodb.com/manual/reference/method/js-cursor).
 
-**Examples**
+#### Examples
 
 ```javascript
 const schema = require('schm')
@@ -240,11 +246,11 @@ Returns **SchemaGroup**
 
 Creates a [geospatial query](https://docs.mongodb.com/manual/geospatial-queries/) based on values.
 
-**Parameters**
+#### Parameters
 
 -   `param` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-**Examples**
+#### Examples
 
 ```javascript
 const schema = require('schm')

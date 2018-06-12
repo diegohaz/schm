@@ -40,19 +40,24 @@ app.use(errorHandler())
 #### Table of Contents
 
 -   [query](#query)
+    -   [Parameters](#parameters)
+    -   [Examples](#examples)
 -   [body](#body)
+    -   [Parameters](#parameters-1)
+    -   [Examples](#examples-1)
 -   [errorHandler](#errorhandler)
+    -   [Examples](#examples-2)
 
 ### query
 
 Returns an express middleware that validates and parses querystring based
 on a given schema.
 
-**Parameters**
+#### Parameters
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-**Examples**
+#### Examples
 
 ```javascript
 const express = require('express')
@@ -71,11 +76,11 @@ app.get('/', query({ foo: Boolean, bar: [String] }), (req, res) => {
 Returns an express middleware that validates and parses request body based
 on a given schema.
 
-**Parameters**
+#### Parameters
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-**Examples**
+#### Examples
 
 ```javascript
 const express = require('express')
@@ -96,7 +101,7 @@ app.post('/', body({ foo: Boolean, bar: [String] }), (req, res) => {
 
 Handles errors from schm-express.
 
-**Examples**
+#### Examples
 
 ```javascript
 const express = require('express')

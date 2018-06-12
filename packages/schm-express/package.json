@@ -1,6 +1,6 @@
 {
   "name": "schm-express",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "Express middlewares using schm",
   "license": "MIT",
   "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm-express",
@@ -35,7 +35,7 @@
     "schm"
   ],
   "dependencies": {
-    "schm": "^0.3.8"
+    "schm": "^0.3.9"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

@@ -34,7 +34,11 @@ const parseOptions = (options: any = String): Object => {
   }
 
   const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)));
-  const flow = compose(literalType, defaultValue, nestedObject);
+  const flow = compose(
+    literalType,
+    defaultValue,
+    nestedObject
+  );
   return flow(options);
 };
 

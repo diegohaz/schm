@@ -52,12 +52,12 @@ Output:
 // validate error
 [
   {
-    "param": "age",
-    "value": 10,
-    "validator": "min",
-    "min": 18,
-    "message": "age must be greater than or equal 18"
-  }
+    param: 'age',
+    value: 10,
+    validator: 'min',
+    min: 18,
+    message: 'age must be greater than or equal 18',
+  },
 ]
 ```
 

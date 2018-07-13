@@ -24,21 +24,41 @@ const schema = require('schm')
 
 const userSchema = schema({
   name: String,
-  age: Number,
+  age: {
+    type: Number,
+    min: 18,
+  },
 })
 
 userSchema.parse({
   name: 'Haz',
   age: '27',
 })
+
+await userSchema.validate({
+  name: 'Jeane',
+  age: 10,
+})
 ```
 
 Output:
 ```js
+// parsed
 {
   name: 'Haz',
   age: 27,
 }
+
+// validate error
+[
+  {
+    "param": "age",
+    "value": 10,
+    "validator": "min",
+    "min": 18,
+    "message": "age must be greater than or equal 18"
+  }
+]
 ```
 
 The way you declare the schema object is very similar to [mongoose Schemas](http://mongoosejs.com/docs/guide.html). So, refer to their docs to learn more.

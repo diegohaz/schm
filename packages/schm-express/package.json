@@ -41,7 +41,7 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0",
     "body-parser": "^1.18.2",
-    "documentation": "8.1.2",
+    "documentation": "vicapow/documentation#a560a4373c301e37251f13e045811932c9c4ac01",
     "eslint": "^5.5.0",
     "express": "^4.16.2",
     "flow-bin": "^0.80.0",

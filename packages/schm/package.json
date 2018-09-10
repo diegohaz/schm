@@ -1,6 +1,6 @@
 {
   "name": "schm",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Composable, parseable and validatable schemas for JavaScript and Node.js",
   "license": "MIT",
   "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm",

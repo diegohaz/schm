@@ -1,6 +1,6 @@
 {
   "name": "schm-koa",
-  "version": "0.2.0",
+  "version": "0.4.1",
   "description": "Koa middlewares using schm",
   "license": "MIT",
   "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm-koa",
@@ -37,7 +37,7 @@
   ],
   "dependencies": {
     "qs": "^6.5.1",
-    "schm": "^0.4.0"
+    "schm": "^0.4.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",

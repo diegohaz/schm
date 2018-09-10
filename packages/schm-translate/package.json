@@ -1,6 +1,6 @@
 {
   "name": "schm-translate",
-  "version": "0.1.6",
+  "version": "0.4.1",
   "description": "Translates values keys into schema keys",
   "license": "MIT",
   "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm-translate",

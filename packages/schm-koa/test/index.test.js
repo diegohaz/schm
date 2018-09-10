@@ -12,6 +12,15 @@ const createApp = middleware => {
   app.use(bodyParser());
   app.use(errorHandler());
   app.use(middleware);
+  app.use(async (ctx, next) => {
+    async function sign() {
+      return new Promise((resolve) => {
+        setTimeout(resolve, 500, "random");
+      })
+    }
+    await sign();
+    next();
+  });
   app.use(ctx => {
     ctx.body = ctx.state;
   });

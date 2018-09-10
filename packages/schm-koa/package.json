@@ -40,7 +40,7 @@
     "schm": "^0.4.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
+    "@babel/cli": "^7.0.0",
     "documentation": "8.1.2",
     "eslint": "^5.5.0",
     "flow-bin": "^0.80.0",

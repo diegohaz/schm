@@ -13,13 +13,6 @@
     "release": "lerna publish",
     "release:beta": "npm run release --npm-tag=beta --preid=beta"
   },
-  "jest": {
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/dist/"
-    ]
-  },
   "workspaces": [
     "packages/*"
   ],

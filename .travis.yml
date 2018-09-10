@@ -2,7 +2,8 @@ language: node_js
 node_js:
   - v8
 script:
-  - npm run lint && npm test -- --coverage
+  - yarn lint
+  - yarn test --coverage
 cache:
   - yarn
 after_success:

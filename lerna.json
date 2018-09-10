@@ -1,6 +1,13 @@
 {
-  "lerna": "2.11.0",
-  "version": "independent",
+  "lerna": "3.0.0",
+  "version": "0.4.0",
   "npmClient": "yarn",
-  "useWorkspaces": true
+  "useWorkspaces": true,
+  "command": {
+    "publish": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "message": "chore(release): Publish"
+    }
+  }
 }

@@ -35,7 +35,8 @@ export const parseValidatorOption = (
       optionValue: option[0],
       message: option[1]
     };
-  } else if (isValidatorObject(option)) {
+  }
+  if (isValidatorObject(option)) {
     const optionWithoutMessage = omit(option, "message", "msg");
     const optionValueKey = Object.keys(optionWithoutMessage)[0];
     return {

@@ -36,11 +36,11 @@ export const query = (params: Object) => async (
   const values = qs.parse(convertEmptyToTrue(ctx.query));
   try {
     ctx.state.query = await querySchema.validate(values);
-    await next();
   } catch (e) {
     ctx.state.schmError = true;
     throw e;
   }
+  await next();
 };
 
 /**
@@ -66,11 +66,11 @@ export const body = (params: Object) => async (ctx: Object, next: Function) => {
   const bodySchema = schema(params);
   try {
     ctx.state.body = await bodySchema.validate(ctx.request.body);
-    await next();
   } catch (e) {
     ctx.state.schmError = true;
     throw e;
   }
+  await next();
 };
 
 /**

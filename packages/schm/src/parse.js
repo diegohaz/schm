@@ -25,7 +25,8 @@ const parse = (values?: Object = {}, params: Object): Object => {
 
       if (typeof parser === "function") {
         return parser(finalValue, option, paramPath, options, values, schema);
-      } else if (parser) {
+      }
+      if (parser) {
         throw new Error(`[schm] ${paramName} parser must be a function`);
       }
       return finalValue;

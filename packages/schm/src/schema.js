@@ -69,7 +69,8 @@ const schema = (...groups: (Object | Schema | SchemaGroup)[]): Schema =>
   groups.reduce((finalSchema, currentGroup) => {
     if (typeof currentGroup === "function") {
       return currentGroup(finalSchema);
-    } else if (isSchema(currentGroup)) {
+    }
+    if (isSchema(currentGroup)) {
       return finalSchema.merge(currentGroup);
     }
     return group(currentGroup)(finalSchema);

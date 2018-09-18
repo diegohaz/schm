@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.4.2"></a>
+## [0.4.2](https://github.com/diegohaz/schm/tree/master/packages/schm-koa/compare/v0.4.1...v0.4.2) (2018-09-18)
+
+
+### Bug Fixes
+
+* **koa:** Stop catching errors on subsequent middlewares ([#46](https://github.com/diegohaz/schm/tree/master/packages/schm-koa/issues/46)) ([c2c6bb5](https://github.com/diegohaz/schm/tree/master/packages/schm-koa/commit/c2c6bb5))
+
+
+
+
+
 <a name="0.4.1"></a>
 ## 0.4.1 (2018-09-10)
 

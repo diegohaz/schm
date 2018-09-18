@@ -1,6 +1,6 @@
 {
   "name": "schm-koa",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Koa middlewares using schm",
   "license": "MIT",
   "repository": "https://github.com/diegohaz/schm/tree/master/packages/schm-koa",

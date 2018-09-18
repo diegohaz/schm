@@ -7,11 +7,17 @@ const servers = [];
 
 afterAll(() => servers.map(server => server.close()));
 
-const createApp = middleware => {
+const createApp = (middleware, teapot) => {
   const app = new Koa();
   app.use(bodyParser());
   app.use(errorHandler());
+  if (teapot) {
+    app.use(teapot.errorHandler());
+  }
   app.use(middleware);
+  if (teapot) {
+    app.use(teapot.middleware());
+  }
   app.use(async (ctx, next) => {
     async function sign() {
       return new Promise(resolve => {
@@ -58,6 +64,27 @@ describe("query", () => {
     expect(response.status).toBe(400);
     expect(response.body).toMatchSnapshot();
   });
+
+  it("should not catch errors thrown by subsequent middlewares", async () => {
+    const teapotHandler = () => async (ctx, next) => {
+      try {
+        await next();
+      } catch (e) {
+        if (ctx.state.schmError) {
+          ctx.status = 500;
+        } else {
+          ctx.status = e.status;
+        }
+      }
+    };
+    const middleware = () => ctx => {
+      ctx.throw(418);
+    };
+    const schema = query({ foo: [Boolean] });
+    const app = createApp(schema, { middleware, errorHandler: teapotHandler });
+    const response = await request(app).post("?foo");
+    expect(response.status).toBe(418);
+  });
 });
 
 describe("body", () => {
@@ -76,6 +103,29 @@ describe("body", () => {
     const response = await request(app).post("/");
     expect(response.status).toBe(400);
     expect(response.body).toMatchSnapshot();
+  });
+
+  it("should not catch errors thrown by subsequent middlewares", async () => {
+    const teapotHandler = () => async (ctx, next) => {
+      try {
+        await next();
+      } catch (e) {
+        if (ctx.state.schmError) {
+          ctx.status = 500;
+        } else {
+          ctx.status = e.status;
+        }
+      }
+    };
+    const middleware = () => ctx => {
+      ctx.throw(418);
+    };
+    const schema = body({ foo: Boolean });
+    const app = createApp(schema, { middleware, errorHandler: teapotHandler });
+    const response = await request(app)
+      .post("/")
+      .send({ foo: 1 });
+    expect(response.status).toBe(418);
   });
 });
 

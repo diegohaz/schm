@@ -24,13 +24,12 @@ const mapValues: MapValuesFunction = (
   Object.keys(params).reduce((finalParams, paramName) => {
     const options = params[paramName];
 
-    let value = "";
+    let value = undefined;
 
     try {
         value = values[paramName];
 
     } catch (e) {
-        value = undefined;
 
     }
 

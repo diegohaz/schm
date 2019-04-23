@@ -1,5 +1,5 @@
 // @flow
-import { toArray, isArray, isSchema } from "./utils";
+import { toArray, isArray } from "./utils";
 
 type TransformValueFunction = (
   value: any,
@@ -36,12 +36,6 @@ const mapValues: MapValuesFunction = (
         transformValueFn(val, opt, paramName, [paramPath, i].join("."))
       );
       return mergeParam(finalValue);
-    }
-
-    if (isSchema(options.type)) {
-      return mergeParam(
-        mapValues(value, options.type.params, transformValueFn, [paramPath])
-      );
     }
 
     return mergeParam(transformValueFn(value, options, paramName, paramPath));

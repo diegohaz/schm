@@ -26,3 +26,23 @@ test("parse without values", () => {
 
   expect(schm.parse()).toEqual({ name: undefined });
 });
+
+test("parse nested schemas", () => {
+  const schm = schema(
+    {
+      name: String
+    },
+    translate({
+      name: "foo.bar"
+    })
+  );
+
+  const nested = schema({
+    dog: String,
+    owner: schm
+  });
+
+  expect(
+    nested.parse({ dog: "Fido", owner: { foo: { bar: "John" } } })
+  ).toEqual({ dog: "Fido", owner: { name: "John" } });
+});
